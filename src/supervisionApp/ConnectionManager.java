@@ -1,11 +1,12 @@
 package supervisionApp;
 import java.sql.Connection;
-
+import java.sql.DriverManager;
 
 public class ConnectionManager {
 	
 	private String url;
 	private User user;
+	private String userDB;
 	private String passwordDB;
 	private Connection connection;
 	private boolean isUserConnected;
@@ -37,9 +38,10 @@ public class ConnectionManager {
 	 * @param url : data base url
 	 * @param passwordDB : password of the database
 	 */
-	public ConnectionManager(String url, String passwordDB) {
+	public ConnectionManager(String url,String userDB, String passwordDB) {
 		this.url = url;
 		this.user = null ;
+		this.userDB = userDB;
 		this.passwordDB = passwordDB;
 		this.isUserConnected = false;
 		this.isConnectedToDB = false;
@@ -50,14 +52,22 @@ public class ConnectionManager {
 	 * @return true if success
 	 */
 	public boolean ConnectDB() {
-		//TODO connection 		
-		//IF SUCCESS :
-		//isConnectedToDB = true;
-		//return true;
 		
-		//ELSE :
-		//isConnectedToDB = false;
-		return false;
+		try {
+  	      Class.forName("com.mysql.jdbc.Driver");
+  	      System.out.println("Driver O.K.");
+  	      
+  	      connection = DriverManager.getConnection(url, userDB, passwordDB);
+  	      isConnectedToDB = true;
+  	      System.out.println("Connexion effective !");         
+  	      return true;
+  	      
+  	    } catch (Exception e) {
+  	      e.printStackTrace();
+  	      isConnectedToDB = false;
+  	      return false;
+  	    }    
+
 	}
 	
 	/**
