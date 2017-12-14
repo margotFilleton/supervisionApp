@@ -28,6 +28,7 @@ public class Frame extends JFrame {
 	private static final long serialVersionUID = 3455953196718941645L;
 
 	private CPUChartModel chartModel = null;
+	private JTabbedPane tabPane = null;
 
 	private int refreshingPeriod = 0;
 	private int refreshingCPUPeriod = 0;
@@ -111,11 +112,11 @@ public class Frame extends JFrame {
 
 		Map<String, String> mapNomTaille = tableModel.getMapNomTaille();
 
+		tabPane = new JTabbedPane();
+		
 		ChartPie chartPie = new ChartPie(mapNomTaille);
 		JPanel createDemoPanel = chartPie.createChartPanel();
-		chartPie.startMonitoring();
-
-		JTabbedPane tabPane = new JTabbedPane();
+		chartPie.startMonitoring(tabPane, createDemoPanel);
 
 		// Launch CPUChartPanel
 		CPUChartPanel cpuChartPanel = new CPUChartPanel();
@@ -127,6 +128,10 @@ public class Frame extends JFrame {
 				plot.setDataset(dataset);
 			}
 		});
+		
+		JVMProcessChart jvmProcessChart = new JVMProcessChart();
+		JPanel panelJVMProcess = jvmProcessChart.createChartPanel();
+		jvmProcessChart.startMonitoring(tabPane, panelJVMProcess);
 
 		chartModel.startMonitoring();
 
@@ -141,15 +146,26 @@ public class Frame extends JFrame {
 		tabPane.setIconAt(2, (new ImageIcon("icons\\line-chart.png")));
 		tabPane.addTab("Informations System", informationPC);
 		tabPane.setIconAt(3, (new ImageIcon("icons\\computer.png")));
-
+		tabPane.addTab("JVM", panelJVMProcess);
+		tabPane.setIconAt(4, (new ImageIcon("icons\\java.png")));
+		
 		setLayout(new BorderLayout());
 		add(tabPane, BorderLayout.CENTER);
 
 		// setContentPane(tabPane);
 		setVisible(true);
-		setSize(600, 800);
+		setSize(1000, 600);
 		setIconImage(new ImageIcon("icons\\icon_frame.png").getImage());
 		tableModel.startMonitoring();
+	}
+	
+
+	public JTabbedPane getTabPane() {
+		return tabPane;
+	}
+
+	public void setTabPane(JTabbedPane tabPane) {
+		this.tabPane = tabPane;
 	}
 
 	public static void main(String[] args) {

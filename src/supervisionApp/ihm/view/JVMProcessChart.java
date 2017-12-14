@@ -1,8 +1,5 @@
 package supervisionApp.ihm.view;
 
-import java.awt.Component;
-import java.util.Map;
-
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
@@ -12,29 +9,28 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.general.PieDataset;
 
-public class ChartPie {
+public class JVMProcessChart {
 
-	private Map<String, String> mapNomTaille = null;
 	private boolean started = false;
 	private JFreeChart chart = null;
 	private ChartPanel chartPanel = null;
 
-	public ChartPie(Map<String, String> mapNomTaille) {
-		this.mapNomTaille = mapNomTaille;
-	}
-
 	private PieDataset createDataset() {
 		DefaultPieDataset dataset = new DefaultPieDataset();
-		if (mapNomTaille.size() > 0 && (!mapNomTaille.isEmpty())) {
-			for (Map.Entry<String, String> e : mapNomTaille.entrySet()) {
-				dataset.setValue(String.valueOf(e.getKey()), Double.valueOf(e.getValue()));
-			}
-		}
+		
+		long maxMemory = Runtime.getRuntime().maxMemory();
+		long freeMemory = Runtime.getRuntime().freeMemory();
+		long usedMemory= maxMemory - freeMemory;
+		dataset.setValue("Available memory (bytes) ", maxMemory);
+		dataset.setValue("Used memory (bytes) ", usedMemory);
+		//dataset.setValue("Free memory (bytes)", freeMemory);
+		
+		
 		return dataset;
 	}
 
 	private JFreeChart createChart(PieDataset dataset) {
-		chart = ChartFactory.createPieChart("Size process memory (Mo)", // chart title
+		chart = ChartFactory.createPieChart("Memory of the JVM (bytes)", // chart title
 				dataset, true, true, false);
 
 		return chart;
@@ -47,7 +43,7 @@ public class ChartPie {
 				public void run() {
 					while (started) {
 						try {
-							Thread.sleep(2000);
+							Thread.sleep(5000);
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
@@ -55,7 +51,7 @@ public class ChartPie {
 						JPanel recreateChartPanel = recreateChartPanel(createDataset);
 
 						if (tabPane != null && createDemoPanel != null) {
-							tabPane.setComponentAt(1, recreateChartPanel);
+							tabPane.setComponentAt(4, recreateChartPanel);
 						}
 
 						if (chart != null) {
