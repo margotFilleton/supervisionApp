@@ -101,7 +101,7 @@ public class ConnectionManager {
 	 * @param cs
 	 * @return true if success
 	 */
-	public boolean ConnectUser(String id, char[] cs) {
+	public boolean ConnectUser(String id, char[] password) {
 		boolean result = false;
 		try {
 			Statement statement = connection.createStatement();
@@ -129,7 +129,7 @@ public class ConnectionManager {
 
 			    String adresse_mail = resultat.getString("adresse_mail");
 
-			    String pwd = new String(cs);
+			    String pwd = new String(password);
 			    pwd = pwd + grain;
 
 			    MessageDigest md = MessageDigest.getInstance("MD5");
