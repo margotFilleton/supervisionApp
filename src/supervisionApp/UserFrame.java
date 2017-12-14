@@ -13,7 +13,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-import supervisionApp.ConnectionManager;
+import supervisionApp.ihm.view.Frame;
 
 public class UserFrame {
 
@@ -72,7 +72,11 @@ public class UserFrame {
 		buttonConnect.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				newConnection.ConnectUser(textFieldUser.getText(), passwordField.getPassword());
+				boolean connectUser = newConnection.ConnectUser(textFieldUser.getText(), passwordField.getPassword());
+				if(connectUser == true) {
+					frame.setVisible(false);
+					new Frame();
+				}
 			}
 		});
 		

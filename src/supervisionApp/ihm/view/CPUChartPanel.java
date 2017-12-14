@@ -50,32 +50,6 @@ public class CPUChartPanel extends ChartPanel {
 		plot.setDomainGridlinesVisible(true);
 		plot.setDomainGridlinePaint(Color.BLACK);
 
-		//chart.getLegend().setFrame(BlockBorder.NONE);
-
 		chart.setTitle(new TextTitle("Utilisation de la CPU", new Font("Serif", java.awt.Font.BOLD, 18)));
 	}
-	
-
-//	public static void main(String[] args) {
-//
-//		SwingUtilities.invokeLater(() -> {
-//			JFrame frame = new JFrame("ChartExemple");
-//			CPUChartPanel ex = new CPUChartPanel();
-//			ChartModel chartModel = new ChartModel(new IChartModelListener() {
-//				@Override
-//				public void dataChanged(XYDataset dataset) {
-//					JFreeChart chart = ex.getChart();
-//					XYPlot plot = chart.getXYPlot();
-//					plot.setDataset(dataset);
-//				}
-//			});
-//			frame.setContentPane(ex);
-//			frame.pack();
-//			frame.setLocationRelativeTo(null);
-//			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//			frame.setVisible(true);
-//			
-//			chartModel.startMonitoring();
-//		});
-//	}
 }
