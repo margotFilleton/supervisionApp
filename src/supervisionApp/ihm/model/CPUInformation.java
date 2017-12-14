@@ -1,6 +1,7 @@
 package supervisionApp.ihm.model;
 
 
+
 import java.lang.management.ManagementFactory;
 
 import com.sun.management.OperatingSystemMXBean;

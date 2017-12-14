@@ -1,5 +1,6 @@
 package supervisionApp.ihm.model;
 
+
 import java.io.File;
 import java.lang.management.ManagementFactory;
 import java.util.Random;

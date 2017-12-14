@@ -5,8 +5,6 @@ import java.awt.Color;
 import java.awt.Font;
 
 import javax.swing.BorderFactory;
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -15,10 +13,6 @@ import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.chart.title.TextTitle;
 import org.jfree.data.time.TimeSeriesCollection;
-import org.jfree.data.xy.XYDataset;
-
-import supervisionApp.ihm.model.ChartModel;
-import supervisionApp.ihm.model.IChartModelListener;
 
 public class CPUChartPanel extends ChartPanel {
 	
@@ -62,26 +56,26 @@ public class CPUChartPanel extends ChartPanel {
 	}
 	
 
-	public static void main(String[] args) {
-
-		SwingUtilities.invokeLater(() -> {
-			JFrame frame = new JFrame("ChartExemple");
-			CPUChartPanel ex = new CPUChartPanel();
-			ChartModel chartModel = new ChartModel(new IChartModelListener() {
-				@Override
-				public void dataChanged(XYDataset dataset) {
-					JFreeChart chart = ex.getChart();
-					XYPlot plot = chart.getXYPlot();
-					plot.setDataset(dataset);
-				}
-			});
-			frame.setContentPane(ex);
-			frame.pack();
-			frame.setLocationRelativeTo(null);
-			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			frame.setVisible(true);
-			
-			chartModel.startMonitoring();
-		});
-	}
+//	public static void main(String[] args) {
+//
+//		SwingUtilities.invokeLater(() -> {
+//			JFrame frame = new JFrame("ChartExemple");
+//			CPUChartPanel ex = new CPUChartPanel();
+//			ChartModel chartModel = new ChartModel(new IChartModelListener() {
+//				@Override
+//				public void dataChanged(XYDataset dataset) {
+//					JFreeChart chart = ex.getChart();
+//					XYPlot plot = chart.getXYPlot();
+//					plot.setDataset(dataset);
+//				}
+//			});
+//			frame.setContentPane(ex);
+//			frame.pack();
+//			frame.setLocationRelativeTo(null);
+//			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//			frame.setVisible(true);
+//			
+//			chartModel.startMonitoring();
+//		});
+//	}
 }

@@ -1,6 +1,6 @@
 package supervisionApp.ihm.model;
 
-import java.util.Random;
+
 
 import org.jfree.data.time.Second;
 import org.jfree.data.time.TimeSeries;
@@ -14,6 +14,8 @@ public class ChartModel {
 	//private Random random;
 	private CPUInformation cpuInformation;
 	private boolean started = false;
+	
+	private int refreshingCPUPeriod = 500; 
 
 	public ChartModel(final IChartModelListener listener) {
 		this.listener = listener;
@@ -42,7 +44,7 @@ public class ChartModel {
 				public void run() {
 					while (started) {
 						try {
-							Thread.sleep(500);
+							Thread.sleep(refreshingCPUPeriod);
 						} catch (InterruptedException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -59,5 +61,13 @@ public class ChartModel {
 		if (started) {
 			started = false;
 		}
+	}
+	
+	public int getRefreshingCPUPeriod() {
+		return refreshingCPUPeriod;
+	}
+
+	public void setRefreshingCPUPeriod(int refreshingCPUPeriod) {
+		this.refreshingCPUPeriod = refreshingCPUPeriod;
 	}
 }
