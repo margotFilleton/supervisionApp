@@ -6,29 +6,26 @@ import org.jfree.data.time.Second;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 
-public class ChartModel {
+public class CPUChartModel {
 
 	private IChartModelListener listener;
 	private TimeSeriesCollection dataset ;
 	private TimeSeries series;
-	//private Random random;
 	private CPUInformation cpuInformation;
 	private boolean started = false;
 	
 	private int refreshingCPUPeriod = 500; 
 
-	public ChartModel(final IChartModelListener listener) {
+	public CPUChartModel(final IChartModelListener listener) {
 		this.listener = listener;
 		dataset = new TimeSeriesCollection();
 		
 		cpuInformation = new CPUInformation();
 		series = new TimeSeries("CPU Usage");
 		dataset.addSeries(series);
-		//random = new Random();
 	}
 
 	private void createDataset() {
-		//int nextInt = random.nextInt(100);
 		String myCPU = cpuInformation.getMyCPU();
 		myCPU = myCPU.replaceAll(",", ".");
 		double cpuValue = Double.valueOf(myCPU);

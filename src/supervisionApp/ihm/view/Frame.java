@@ -19,7 +19,7 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.data.xy.XYDataset;
 
-import supervisionApp.ihm.model.ChartModel;
+import supervisionApp.ihm.model.CPUChartModel;
 import supervisionApp.ihm.model.IChartModelListener;
 import supervisionApp.ihm.model.MyTableModel;
 
@@ -27,7 +27,7 @@ public class Frame extends JFrame {
 
 	private static final long serialVersionUID = 3455953196718941645L;
 
-	private ChartModel chartModel = null;
+	private CPUChartModel chartModel = null;
 
 	private int refreshingPeriod = 0;
 	private int refreshingCPUPeriod = 0;
@@ -118,7 +118,7 @@ public class Frame extends JFrame {
 
 		// Launch CPUChartPanel
 		CPUChartPanel cpuChartPanel = new CPUChartPanel();
-		chartModel = new ChartModel(new IChartModelListener() {
+		chartModel = new CPUChartModel(new IChartModelListener() {
 			@Override
 			public void dataChanged(XYDataset dataset) {
 				JFreeChart chart = cpuChartPanel.getChart();
@@ -134,7 +134,7 @@ public class Frame extends JFrame {
 		tabPane.addTab("Process Memory", tableExemple);
 		tabPane.setIconAt(0, (new ImageIcon("icons\\chip.png")));
 
-		tabPane.addTab("Graph", createDemoPanel);
+		tabPane.addTab("Process Memory Graph", createDemoPanel);
 		tabPane.setIconAt(1, (new ImageIcon("icons\\bar-chart.png")));
 		tabPane.addTab("CPU", cpuChartPanel);
 		tabPane.setIconAt(2, (new ImageIcon("icons\\line-chart.png")));
