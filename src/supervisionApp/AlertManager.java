@@ -1,5 +1,6 @@
 package supervisionApp;
 
+
 public class AlertManager {
 	
 	private String msgProcessStop = "Alerte : un processus ne tourne plus";
