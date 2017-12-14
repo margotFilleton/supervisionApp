@@ -113,6 +113,7 @@ public class Frame extends JFrame {
 
 		ChartPie chartPie = new ChartPie(mapNomTaille);
 		JPanel createDemoPanel = chartPie.createChartPanel();
+		chartPie.startMonitoring();
 
 		JTabbedPane tabPane = new JTabbedPane();
 

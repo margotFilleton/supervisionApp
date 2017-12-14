@@ -38,7 +38,7 @@ public class CPUChartPanel extends ChartPanel {
 		XYPlot plot = chart.getXYPlot();
 
 		XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
-		renderer.setSeriesPaint(0, Color.RED);
+		renderer.setSeriesPaint(0, Color.BLUE);
 		renderer.setSeriesStroke(0, new BasicStroke(2.0f));
 
 		plot.setRenderer(renderer);

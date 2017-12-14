@@ -102,6 +102,7 @@ public class MyTableModel extends DefaultTableModel {
 		listPID.clear();
 		listServices.clear();
 		listTaille.clear();
+		mapNomTaille.clear();
 		try {
 			Process p = Runtime.getRuntime().exec(System.getenv("windir") + "\\system32\\" + "tasklist.exe");
 			InputStream inputStream = p.getInputStream();
