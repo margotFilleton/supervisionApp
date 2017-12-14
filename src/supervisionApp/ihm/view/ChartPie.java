@@ -34,7 +34,7 @@ public class ChartPie {
 	}
 
 	private JFreeChart createChart(PieDataset dataset) {
-		chart = ChartFactory.createPieChart("Size process memory (Mo)", // chart title
+		chart = ChartFactory.createPieChart("Size process memory (Mo) 50 > ", // chart title
 				dataset, true, true, false);
 
 		return chart;

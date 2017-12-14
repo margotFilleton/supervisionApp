@@ -131,7 +131,7 @@ public class MyTableModel extends DefaultTableModel {
 						Float koValue = Float.valueOf(extraireDonnees[4].replace("\u00ff", ""));
 						Float moValue = (koValue / (1024));
 
-						if (moValue > 100) {
+						if (moValue > 50) {
 							mapNomTaille.put(extraireDonnees[0], String.valueOf(moValue));
 						}
 					}
