@@ -5,10 +5,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.GroupLayout;
+import javax.swing.ImageIcon;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
@@ -57,6 +59,8 @@ public class UserFrame {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 227, 148);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setTitle("Connection to the DataBase");
+		frame.setIconImage(new ImageIcon("icons\\database.png").getImage());
 		
 		ConnectionManager newConnection = new ConnectionManager("jdbc:mysql://192.168.20.11:3306/projet","root","password");
 		Boolean test = newConnection.ConnectDB();
@@ -73,9 +77,12 @@ public class UserFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				
 				boolean connectUser = newConnection.ConnectUser(textFieldUser.getText(), passwordField.getPassword());
-				if(connectUser == true) {
+				if(connectUser) {
 					frame.setVisible(false);
 					new Frame();
+				} else {
+					 JOptionPane.showMessageDialog(frame, "Error : Connection impossible", 
+					      "Connection failed", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
