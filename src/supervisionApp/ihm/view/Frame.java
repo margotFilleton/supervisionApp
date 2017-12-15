@@ -32,6 +32,8 @@ public class Frame extends JFrame {
 
 	private int refreshingPeriod = 0;
 	private int refreshingCPUPeriod = 0;
+	
+	private boolean enableMenuItem = false; 
 
 	private boolean showInKo = false;
 
@@ -40,8 +42,12 @@ public class Frame extends JFrame {
 		// Menu bar
 		JMenuBar menubar = new JMenuBar();
 		JMenu menuFile = new JMenu("File");
+		JMenu menuRefreshPeriod = new JMenu("Refreshing period");
 		JMenu menuPreference = new JMenu("Preference");
+		
 		JMenuItem menuItemCPUPeriod = new JMenuItem("Change CPU refreshing period");
+		JMenuItem menuItemStopRefreshingTablePeriod = new JMenuItem("Start refreshing table period");
+		JMenuItem menuItemStartRefreshingTablePeriod = new JMenuItem("Stop refreshing table period");
 		JMenuItem menuItemChangeRefreshingPeriod = new JMenuItem("Change process memory refreshing period");
 		JMenuItem menuItemExit = new JMenuItem("Exit");
 
@@ -50,16 +56,24 @@ public class Frame extends JFrame {
 		menuItemExit.setIcon(new ImageIcon("icons\\exit.png"));
 		menuItemChangeRefreshingPeriod.setIcon(new ImageIcon("icons\\refresh.png"));
 		menuItemCPUPeriod.setIcon(new ImageIcon("icons\\line-chart.png"));
-
-		menuFile.add(menuItemCPUPeriod);
-		menuFile.add(menuItemChangeRefreshingPeriod);
-		menuFile.addSeparator();
+		
+		menuItemStartRefreshingTablePeriod.setIcon(new ImageIcon("icons\\play.png"));
+		menuItemStopRefreshingTablePeriod.setIcon(new ImageIcon("icons\\stop.png"));
+		
+		menuRefreshPeriod.add(menuItemCPUPeriod);
+		menuRefreshPeriod.add(menuItemChangeRefreshingPeriod);
+		menuRefreshPeriod.addSeparator();
+		menuRefreshPeriod.add(menuItemStartRefreshingTablePeriod);
+		menuRefreshPeriod.add(menuItemStopRefreshingTablePeriod);
+		
+		//menuFile.addSeparator();
 		menuFile.add(menuItemExit);
 
 		menuPreference.add(menuChangeSizeKo);
 		menuChangeSizeKo.setSelected(false);
 
 		menubar.add(menuFile);
+		menubar.add(menuRefreshPeriod);
 		menubar.add(menuPreference);
 
 		menuItemExit.addActionListener(new ActionListener() {
@@ -126,6 +140,28 @@ public class Frame extends JFrame {
 				JFreeChart chart = cpuChartPanel.getChart();
 				XYPlot plot = chart.getXYPlot();
 				plot.setDataset(dataset);
+			}
+		});
+		
+
+		menuItemStartRefreshingTablePeriod.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				tableModel.startMonitoring();
+				menuItemStartRefreshingTablePeriod.setEnabled(enableMenuItem);
+				enableMenuItem = false;
+			}
+		});
+		
+		
+		menuItemStopRefreshingTablePeriod.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				tableModel.stopMonitoring();
+				menuItemStartRefreshingTablePeriod.setEnabled(!enableMenuItem);
+				enableMenuItem = true;
 			}
 		});
 		
