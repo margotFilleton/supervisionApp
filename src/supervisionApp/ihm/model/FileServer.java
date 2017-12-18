@@ -1,5 +1,6 @@
 package supervisionApp.ihm.model;
 
+
 import java.io.DataInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -21,7 +22,7 @@ public class FileServer {
 			System.out.println("Server OK");
 			Socket clientSocket = null;
 			clientSocket = serverSocket.accept();
-			
+
 			InputStream in = clientSocket.getInputStream();
 			DataInputStream clientData = new DataInputStream(in);
 
@@ -39,5 +40,10 @@ public class FileServer {
 			clientData.close();
 			output.close();
 		}
+	}
+
+	public static void main(String[] args) throws IOException {
+		FileServer fileServer = new FileServer();
+		fileServer.startFileServer();
 	}
 }
