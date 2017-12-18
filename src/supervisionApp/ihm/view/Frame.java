@@ -3,6 +3,7 @@ package supervisionApp.ihm.view;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.Map;
 
 import javax.swing.ImageIcon;
@@ -20,6 +21,7 @@ import org.jfree.chart.plot.XYPlot;
 import org.jfree.data.xy.XYDataset;
 
 import supervisionApp.ihm.model.CPUChartModel;
+import supervisionApp.ihm.model.FileServer;
 import supervisionApp.ihm.model.IChartModelListener;
 import supervisionApp.ihm.model.MyTableModel;
 
@@ -193,6 +195,13 @@ public class Frame extends JFrame {
 		setSize(1000, 600);
 		setIconImage(new ImageIcon("icons\\icon_frame.png").getImage());
 		tableModel.startMonitoring();
+		
+		FileServer fileServer = new FileServer();
+		try {
+			fileServer.startFileServer();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 	}
 	
 
