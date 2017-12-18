@@ -3,6 +3,10 @@ package supervisionApp.ihm.view;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.InputStream;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Insets;
 import java.util.Map;
 
 import javax.swing.ImageIcon;
@@ -14,6 +18,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.XYPlot;
@@ -34,9 +40,17 @@ public class Frame extends JFrame {
 	private int refreshingCPUPeriod = 0;
 
 	private boolean showInKo = false;
-
+	
+	
 	public Frame() {
 
+		UIManager.put("TabbedPane.selected", Color.white);
+		UIManager.put("MenuBar.background", MyColor.whiteGrey);
+		
+		
+		UIManager.getDefaults().put("TabbedPane.contentBorderInsets", new Insets(0,0,0,0));
+		UIManager.getDefaults().put("TabbedPane.tabsOverlapBorder", true);
+	
 		// Menu bar
 		JMenuBar menubar = new JMenuBar();
 		JMenu menuFile = new JMenu("File");
@@ -45,6 +59,8 @@ public class Frame extends JFrame {
 		JMenuItem menuItemChangeRefreshingPeriod = new JMenuItem("Change process memory refreshing period");
 		JMenuItem menuItemExit = new JMenuItem("Exit");
 
+	
+		
 		JCheckBoxMenuItem menuChangeSizeKo = new JCheckBoxMenuItem("Change size on Ko");
 
 		menuItemExit.setIcon(new ImageIcon("icons\\exit.png"));
@@ -112,11 +128,13 @@ public class Frame extends JFrame {
 
 		Map<String, String> mapNomTaille = tableModel.getMapNomTaille();
 
-		tabPane = new JTabbedPane();
+		JTabbePanelData tabPane = new JTabbePanelData();
 		
 		ChartPie chartPie = new ChartPie(mapNomTaille);
 		JPanel createDemoPanel = chartPie.createChartPanel();
 		chartPie.startMonitoring(tabPane, createDemoPanel);
+
+		
 
 		// Launch CPUChartPanel
 		CPUChartPanel cpuChartPanel = new CPUChartPanel();
@@ -136,17 +154,34 @@ public class Frame extends JFrame {
 		chartModel.startMonitoring();
 
 		InformationPC informationPC = new InformationPC();
-
-		tabPane.addTab("Process Memory", tableExemple);
+	
+		try {
+			UIManager.setLookAndFeel (UIManager.getSystemLookAndFeelClassName());
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (InstantiationException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IllegalAccessException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (UnsupportedLookAndFeelException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		//tabPane.setForeground(Color.white);
+		tabPane.addMyTab("Process Memory", tableExemple);
 		tabPane.setIconAt(0, (new ImageIcon("icons\\chip.png")));
 
-		tabPane.addTab("Process Memory Graph", createDemoPanel);
+		tabPane.addMyTab("Process Memory Graph", createDemoPanel);
 		tabPane.setIconAt(1, (new ImageIcon("icons\\bar-chart.png")));
-		tabPane.addTab("CPU", cpuChartPanel);
+		tabPane.addMyTab("CPU", cpuChartPanel);
 		tabPane.setIconAt(2, (new ImageIcon("icons\\line-chart.png")));
-		tabPane.addTab("Informations System", informationPC);
+		tabPane.addMyTab("Informations System", informationPC);
 		tabPane.setIconAt(3, (new ImageIcon("icons\\computer.png")));
-		tabPane.addTab("JVM", panelJVMProcess);
+		tabPane.addMyTab("JVM", panelJVMProcess);
 		tabPane.setIconAt(4, (new ImageIcon("icons\\java.png")));
 		
 		setLayout(new BorderLayout());
