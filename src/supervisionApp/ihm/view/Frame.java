@@ -47,7 +47,6 @@ public class Frame extends JFrame {
 		UIManager.put("TabbedPane.selected", Color.white);
 		UIManager.put("MenuBar.background", MyColor.whiteGrey);
 		
-		
 		UIManager.getDefaults().put("TabbedPane.contentBorderInsets", new Insets(0,0,0,0));
 		UIManager.getDefaults().put("TabbedPane.tabsOverlapBorder", true);
 	
@@ -129,6 +128,7 @@ public class Frame extends JFrame {
 		Map<String, String> mapNomTaille = tableModel.getMapNomTaille();
 
 		JTabbePanelData tabPane = new JTabbePanelData();
+		
 		
 		ChartPie chartPie = new ChartPie(mapNomTaille);
 		JPanel createDemoPanel = chartPie.createChartPanel();

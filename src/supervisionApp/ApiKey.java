@@ -1,4 +1,4 @@
-package supervisionApp.ihm.view;
+package supervisionApp;
 
 public class ApiKey {
 	
