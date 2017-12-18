@@ -15,6 +15,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
+import supervisionApp.ihm.view.ChooseMode;
 import supervisionApp.ihm.view.Frame;
 
 public class UserFrame {
@@ -79,7 +80,7 @@ public class UserFrame {
 				boolean connectUser = newConnection.ConnectUser(textFieldUser.getText(), passwordField.getPassword());
 				if(connectUser) {
 					frame.setVisible(false);
-					new Frame();
+					new ChooseMode();
 				} else {
 					 JOptionPane.showMessageDialog(frame, "Error : Connection impossible", 
 					      "Connection failed", JOptionPane.ERROR_MESSAGE);

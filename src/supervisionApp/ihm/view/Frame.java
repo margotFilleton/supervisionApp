@@ -40,50 +40,47 @@ public class Frame extends JFrame {
 
 	private int refreshingPeriod = 0;
 	private int refreshingCPUPeriod = 0;
-	
-	private boolean enableMenuItem = false; 
+
+	private boolean enableMenuItem = false;
 
 	private boolean showInKo = false;
-	
-	
-	public Frame() {
+
+	public Frame(boolean isConnectedMode) {
 
 		UIManager.put("TabbedPane.selected", Color.white);
 		UIManager.put("MenuBar.background", MyColor.whiteGrey);
-		
-		UIManager.getDefaults().put("TabbedPane.contentBorderInsets", new Insets(0,0,0,0));
+
+		UIManager.getDefaults().put("TabbedPane.contentBorderInsets", new Insets(0, 0, 0, 0));
 		UIManager.getDefaults().put("TabbedPane.tabsOverlapBorder", true);
-	
+
 		// Menu bar
 		JMenuBar menubar = new JMenuBar();
 		JMenu menuFile = new JMenu("File");
 		JMenu menuRefreshPeriod = new JMenu("Refreshing period");
 		JMenu menuPreference = new JMenu("Preference");
-		
+
 		JMenuItem menuItemCPUPeriod = new JMenuItem("Change CPU refreshing period");
 		JMenuItem menuItemStopRefreshingTablePeriod = new JMenuItem("Start refreshing table period");
 		JMenuItem menuItemStartRefreshingTablePeriod = new JMenuItem("Stop refreshing table period");
 		JMenuItem menuItemChangeRefreshingPeriod = new JMenuItem("Change process memory refreshing period");
 		JMenuItem menuItemExit = new JMenuItem("Exit");
 
-	
-		
 		JCheckBoxMenuItem menuChangeSizeKo = new JCheckBoxMenuItem("Change size on Ko");
 
 		menuItemExit.setIcon(new ImageIcon("icons\\exit.png"));
 		menuItemChangeRefreshingPeriod.setIcon(new ImageIcon("icons\\refresh.png"));
 		menuItemCPUPeriod.setIcon(new ImageIcon("icons\\line-chart.png"));
-		
+
 		menuItemStartRefreshingTablePeriod.setIcon(new ImageIcon("icons\\play.png"));
 		menuItemStopRefreshingTablePeriod.setIcon(new ImageIcon("icons\\stop.png"));
-		
+
 		menuRefreshPeriod.add(menuItemCPUPeriod);
 		menuRefreshPeriod.add(menuItemChangeRefreshingPeriod);
 		menuRefreshPeriod.addSeparator();
 		menuRefreshPeriod.add(menuItemStartRefreshingTablePeriod);
 		menuRefreshPeriod.add(menuItemStopRefreshingTablePeriod);
-		
-		//menuFile.addSeparator();
+
+		// menuFile.addSeparator();
 		menuFile.add(menuItemExit);
 
 		menuPreference.add(menuChangeSizeKo);
@@ -144,13 +141,10 @@ public class Frame extends JFrame {
 		Map<String, String> mapNomTaille = tableModel.getMapNomTaille();
 
 		JTabbePanelData tabPane = new JTabbePanelData();
-		
-		
+
 		ChartPie chartPie = new ChartPie(mapNomTaille);
 		JPanel createDemoPanel = chartPie.createChartPanel();
 		chartPie.startMonitoring(tabPane, createDemoPanel);
-
-		
 
 		// Launch CPUChartPanel
 		CPUChartPanel cpuChartPanel = new CPUChartPanel();
@@ -162,10 +156,9 @@ public class Frame extends JFrame {
 				plot.setDataset(dataset);
 			}
 		});
-		
 
 		menuItemStartRefreshingTablePeriod.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				tableModel.startMonitoring();
@@ -173,10 +166,9 @@ public class Frame extends JFrame {
 				enableMenuItem = false;
 			}
 		});
-		
-		
+
 		menuItemStopRefreshingTablePeriod.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				tableModel.stopMonitoring();
@@ -184,7 +176,7 @@ public class Frame extends JFrame {
 				enableMenuItem = true;
 			}
 		});
-		
+
 		JVMProcessChart jvmProcessChart = new JVMProcessChart();
 		JPanel panelJVMProcess = jvmProcessChart.createChartPanel();
 		jvmProcessChart.startMonitoring(tabPane, panelJVMProcess);
@@ -192,24 +184,20 @@ public class Frame extends JFrame {
 		chartModel.startMonitoring();
 
 		InformationPC informationPC = new InformationPC();
-	
+
 		try {
-			UIManager.setLookAndFeel (UIManager.getSystemLookAndFeelClassName());
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (ClassNotFoundException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} catch (InstantiationException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} catch (IllegalAccessException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} catch (UnsupportedLookAndFeelException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
-		//tabPane.setForeground(Color.white);
+
+		// tabPane.setForeground(Color.white);
 		tabPane.addMyTab("Process Memory", tableExemple);
 		tabPane.setIconAt(0, (new ImageIcon("icons\\chip.png")));
 
@@ -221,7 +209,7 @@ public class Frame extends JFrame {
 		tabPane.setIconAt(3, (new ImageIcon("icons\\computer.png")));
 		tabPane.addMyTab("JVM", panelJVMProcess);
 		tabPane.setIconAt(4, (new ImageIcon("icons\\java.png")));
-		
+
 		setLayout(new BorderLayout());
 		add(tabPane, BorderLayout.CENTER);
 
@@ -230,15 +218,22 @@ public class Frame extends JFrame {
 		setSize(1000, 600);
 		setIconImage(new ImageIcon("icons\\icon_frame.png").getImage());
 		tableModel.startMonitoring();
-		
-		FileServer fileServer = new FileServer();
-		try {
-			fileServer.startFileServer();
-		} catch (IOException e1) {
-			e1.printStackTrace();
+	}
+
+	public Frame(String modeConnected) {
+		if (ChooseMode.MODE_CONNECTED.equals(modeConnected)) {
+			FileServer fileServer = new FileServer();
+			try {
+				fileServer.startFileServer();
+				new ShowClientPost();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+
+		} else if (ChooseMode.MODE_LOCAL.equals(modeConnected)) {
+			new Frame(false);
 		}
 	}
-	
 
 	public JTabbedPane getTabPane() {
 		return tabPane;
@@ -249,6 +244,6 @@ public class Frame extends JFrame {
 	}
 
 	public static void main(String[] args) {
-		new Frame();
+		new Frame(false);
 	}
 }
