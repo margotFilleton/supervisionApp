@@ -1,6 +1,5 @@
 package supervisionApp.ihm.view;
 
-import java.awt.Component;
 import java.util.Map;
 
 import javax.swing.JPanel;

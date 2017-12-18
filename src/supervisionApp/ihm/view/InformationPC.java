@@ -24,7 +24,6 @@ public class InformationPC extends JPanel {
 
 	private JLabel hostName = new JLabel();
 	private JLabel ipAdress = new JLabel();
-	private JLabel systemType = new JLabel();
 	private JLabel processorId = new JLabel();
 	private JLabel processorArchitect = new JLabel();
 	private JLabel macAdress = new JLabel();
@@ -52,14 +51,10 @@ public class InformationPC extends JPanel {
 			NetworkInterface network = NetworkInterface.getByInetAddress(ip);
 
 			byte[] mac = network.getHardwareAddress();
-
-			System.out.print("Current MAC address : ");
-
 			StringBuilder sb = new StringBuilder();
 			for (int i = 0; i < mac.length; i++) {
 				sb.append(String.format("%02X%s", mac[i], (i < mac.length - 1) ? "-" : ""));
 			}
-			System.out.println(sb.toString());
 			macAdress.setText("Current MAC address : " + sb.toString());
 
 		} catch (UnknownHostException e) {
@@ -114,13 +109,13 @@ public class InformationPC extends JPanel {
 		c.gridx = 0;
 		c.gridy = 6;
 		add(processorArchitect, c);
-		
+
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.weightx = 0.5;
 		c.gridx = 0;
 		c.gridy = 7;
 		add(macAdress, c);
-		
+
 	}
 
 	public static void main(String[] args) {
