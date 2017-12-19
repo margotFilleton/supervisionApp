@@ -5,7 +5,6 @@ import java.awt.Color;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import java.util.Map;
 
 import javax.swing.ImageIcon;
@@ -24,8 +23,8 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.data.xy.XYDataset;
 
+import supervisionApp.ihm.controller.SupervisionController;
 import supervisionApp.ihm.model.CPUChartModel;
-import supervisionApp.ihm.model.FileServer;
 import supervisionApp.ihm.model.IChartModelListener;
 import supervisionApp.ihm.model.MyTableModel;
 
@@ -43,8 +42,7 @@ public class Frame extends JFrame {
 
 	private boolean showInKo = false;
 
-	public Frame(boolean isConnectedMode) {
-
+	public Frame(SupervisionController supervisionController) {
 		UIManager.put("TabbedPane.selected", Color.white);
 		UIManager.put("MenuBar.background", MyColor.whiteGrey);
 
@@ -133,7 +131,7 @@ public class Frame extends JFrame {
 		setTitle("Process Manager");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		Table tableExemple = new Table();
+		Table tableExemple = new Table(supervisionController);
 		tableExemple.setModel(tableModel);
 
 		Map<String, String> mapNomTaille = tableModel.getMapNomTaille();
@@ -218,21 +216,6 @@ public class Frame extends JFrame {
 		tableModel.startMonitoring();
 	}
 
-	public Frame(String modeConnected) {
-		if (ChooseMode.MODE_CONNECTED.equals(modeConnected)) {
-			FileServer fileServer = new FileServer();
-			try {
-				fileServer.startFileServer();
-				new ShowClientPost();
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
-
-		} else if (ChooseMode.MODE_LOCAL.equals(modeConnected)) {
-			new Frame(false);
-		}
-	}
-
 	public JTabbedPane getTabPane() {
 		return tabPane;
 	}
@@ -242,6 +225,6 @@ public class Frame extends JFrame {
 	}
 
 	public static void main(String[] args) {
-		new Frame(false);
+		new Frame(null);
 	}
 }

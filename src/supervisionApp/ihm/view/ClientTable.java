@@ -14,14 +14,12 @@ import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingUtilities;
-import javax.swing.table.AbstractTableModel;
 
-import org.jdesktop.swingx.JXTable;
+import supervisionApp.ihm.model.ClientTableModel;
 
 public class ClientTable extends JPanel {
 
 	private static final long serialVersionUID = 3697207972461245874L;
-	
 	private JPopupMenu popupMenu = null;
 	private JMenuItem menuItemKillProcess = null;
 	private JTable table = null;
@@ -33,7 +31,7 @@ public class ClientTable extends JPanel {
 
 	private void initComponents() {
 		setLayout(new BorderLayout());
-		table = new JXTable();
+		table = new JTable();
 		JScrollPane scrollPane = new JScrollPane(table);
 		add(scrollPane, BorderLayout.CENTER);
 
@@ -96,7 +94,7 @@ public class ClientTable extends JPanel {
 		});
 	}
 
-	public void setModel(final AbstractTableModel model) {
+	public void setModel(final ClientTableModel model) {
 		table.setModel(model);
 	}
 

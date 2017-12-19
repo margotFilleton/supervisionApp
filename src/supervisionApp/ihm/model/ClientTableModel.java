@@ -12,7 +12,7 @@ import javax.swing.table.DefaultTableModel;
 public class ClientTableModel extends DefaultTableModel {
 
 	private static final long serialVersionUID = 5051404626097853059L;
-	
+
 	private static final String[] columnName = new String[] { "Nom", "PID", "Services", "Taille" };
 	private boolean started = false;
 	private static List<String> processList = null;
@@ -27,47 +27,11 @@ public class ClientTableModel extends DefaultTableModel {
 	private static int RESHING_PERIOD = 500;
 	private static String SEPARATOR = ":";
 
-	private String fileName = null; 
+	private String fileName = null;
 
 	public ClientTableModel(String fileName) {
-		this.fileName = fileName; 
+		this.fileName = fileName;
 		readData();
-	}
-	
-	private void readClientFile(String fileName) {
-		BufferedReader br = null;
-		try {
-			br = new BufferedReader(new FileReader("C:\\client_connected\\" + fileName));
-			String line = null;
-			try {
-				while ((line = br.readLine()) != null) {
-					String[] split = line.split(SEPARATOR);
-
-					if (split.length == 4) {
-						String appliRun = split[0].trim();
-						String PID = split[1].trim();
-						String service = split[2].trim();
-						String taille = split[3].trim();
-						
-						listNom.add(appliRun);
-						listPID.add(PID);
-						listServices.add(service);
-						listTaille.add(taille);
-
-//						 System.out.println("appliRun = " + appliRun);
-//						 System.out.println("PID = " + PID);
-//						
-//						 System.out.println("service = " + service);
-//						 System.out.println("taille = " + taille);
-					}
-				}
-				br.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
 	}
 
 	@Override
@@ -106,7 +70,6 @@ public class ClientTableModel extends DefaultTableModel {
 		switch (columnIndex) {
 		case 0:
 			value = listNom.get(rowIndex);
-			System.out.println("value = " + value);
 			break;
 		case 1:
 			value = listPID.get(rowIndex);
@@ -120,6 +83,8 @@ public class ClientTableModel extends DefaultTableModel {
 		default:
 			throw new IllegalArgumentException();
 		}
+
+		System.out.println("value = " + value);
 		return value;
 	}
 
@@ -137,8 +102,40 @@ public class ClientTableModel extends DefaultTableModel {
 		listServices.clear();
 		listTaille.clear();
 
-		readClientFile(fileName);
-		this.fireTableDataChanged();
+		BufferedReader br = null;
+		try {
+			br = new BufferedReader(new FileReader("C:\\client_connected\\" + fileName));
+			String line = null;
+			try {
+				while ((line = br.readLine()) != null) {
+					String[] split = line.split(SEPARATOR);
+					processList.add(line);
+					if (split.length == 4) {
+						String appliRun = split[0].trim();
+						String PID = split[1].trim();
+						String service = split[2].trim();
+						String taille = split[3].trim();
+
+						listNom.add(appliRun);
+						listPID.add(PID);
+						listServices.add(service);
+						listTaille.add(taille);
+
+						// System.out.println("appliRun = " + appliRun);
+						// System.out.println("PID = " + PID);
+						//
+						// System.out.println("service = " + service);
+						// System.out.println("taille = " + taille);
+					}
+				}
+				this.fireTableDataChanged();
+				br.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void startMonitoring() {
@@ -166,12 +163,13 @@ public class ClientTableModel extends DefaultTableModel {
 		}
 	}
 
-//	public void ressourcingManager() {
-//		long freeMemory = Runtime.getRuntime().freeMemory();
-//		long freeMemory2 = Runtime.getRuntime().totalMemory();
-//
-//		System.out.println("freeMemory = " + freeMemory + " totalMemory = " + freeMemory2);
-//	}
+	// public void ressourcingManager() {
+	// long freeMemory = Runtime.getRuntime().freeMemory();
+	// long freeMemory2 = Runtime.getRuntime().totalMemory();
+	//
+	// System.out.println("freeMemory = " + freeMemory + " totalMemory = " +
+	// freeMemory2);
+	// }
 
 	public int getRefreshingPeriod() {
 		return RESHING_PERIOD;

@@ -5,8 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.GroupLayout;
-import javax.swing.ImageIcon;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -15,8 +15,8 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
+import supervisionApp.ihm.controller.SupervisionController;
 import supervisionApp.ihm.view.ChooseMode;
-import supervisionApp.ihm.view.Frame;
 
 public class UserFrame {
 
@@ -64,7 +64,6 @@ public class UserFrame {
 		frame.setIconImage(new ImageIcon("icons\\database.png").getImage());
 		
 		ConnectionManager newConnection = new ConnectionManager("jdbc:mysql://192.168.20.56:3306/projet","root","password");
-		Boolean test = newConnection.ConnectDB();
 		
 		JLabel lblUser = new JLabel("Utilisateur");
 		
@@ -80,7 +79,9 @@ public class UserFrame {
 				boolean connectUser = newConnection.ConnectUser(textFieldUser.getText(), passwordField.getPassword());
 				if(connectUser) {
 					frame.setVisible(false);
-					new ChooseMode();
+					SupervisionController supervisionController = new SupervisionController();
+					supervisionController.setUser(newConnection.getUser());
+					new ChooseMode(supervisionController);
 				} else {
 					 JOptionPane.showMessageDialog(frame, "Error : Connection impossible", 
 					      "Connection failed", JOptionPane.ERROR_MESSAGE);

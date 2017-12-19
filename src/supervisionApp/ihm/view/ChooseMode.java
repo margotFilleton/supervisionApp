@@ -3,12 +3,16 @@ package supervisionApp.ihm.view;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
+import supervisionApp.ihm.controller.SupervisionController;
+import supervisionApp.ihm.model.FileServer;
 
 public class ChooseMode extends JFrame {
 
@@ -23,7 +27,7 @@ public class ChooseMode extends JFrame {
 	public static final String MODE_LOCAL = "MODE_LOCAL";
 	public static final String MODE_CONNECTED = "MODE_CONNECTED";
 
-	public ChooseMode() {
+	public ChooseMode(SupervisionController supervisionController) {
 
 		okButton = new JButton("Ok");
 		checkBoxLocalMode = new JCheckBox("Process Local");
@@ -66,11 +70,22 @@ public class ChooseMode extends JFrame {
 				boolean selectedConnected = checkBoxConnected.isSelected();
 				boolean selectedLocalMode = checkBoxLocalMode.isSelected();
 				if (selectedConnected) {
-					ChooseMode.this.dispose();
-					new ShowClientPost();
+					FileServer fileServer = new FileServer();
+					Thread thread = new Thread() {
+						public void run() {
+							try {
+								fileServer.startFileServer();
+							} catch (IOException e) {
+								e.printStackTrace();
+							}
+						}
+					};
+					thread.start();
+					new ShowClientPost(supervisionController);
+					ChooseMode.this.setVisible(false);
 				} else if (selectedLocalMode) {
 					ChooseMode.this.dispose();
-					new Frame(MODE_LOCAL);
+					new Frame(supervisionController);
 				}
 				if (!selectedConnected && !selectedLocalMode) {
 					JOptionPane.showMessageDialog(ChooseMode.this, "Select mode necessary", "Error",
@@ -87,9 +102,4 @@ public class ChooseMode extends JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 	}
-
-	public static void main(String[] args) {
-		new ChooseMode();
-	}
-
 }

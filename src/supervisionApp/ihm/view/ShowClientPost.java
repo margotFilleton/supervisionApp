@@ -15,13 +15,15 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import supervisionApp.ihm.controller.SupervisionController;
+
 public class ShowClientPost extends JFrame {
 
 	private static final long serialVersionUID = 6017672191027006837L;
 	private ArrayList<String> fileNameList = null;
 	private JPanel mainPanel = null;
 
-	public ShowClientPost() {
+	public ShowClientPost(SupervisionController supervisionController) {
 
 		mainPanel = new JPanel();
 
@@ -33,6 +35,7 @@ public class ShowClientPost extends JFrame {
 		File[] f = dir.listFiles();
 		for (int i = 0; i < f.length; i++) {
 			if (f[i].isFile()) {
+				
 				fileNameList.add(String.valueOf(f[i]));
 				String fullClientName = String.valueOf(f[i]);
 				int index = fullClientName.lastIndexOf('\\');
@@ -95,9 +98,5 @@ public class ShowClientPost extends JFrame {
 		});
 
 		return newClientPanel;
-	}
-
-	public static void main(String[] args) {
-		new ShowClientPost();
 	}
 }

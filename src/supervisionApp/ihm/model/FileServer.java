@@ -45,7 +45,7 @@ public class FileServer {
 					output.write(buffer, 0, bytesRead);
 					size -= bytesRead;
 				}
-
+				
 				// Closing the FileOutputStream handle
 				in.close();
 				clientData.close();

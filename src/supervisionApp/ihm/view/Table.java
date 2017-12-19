@@ -18,6 +18,8 @@ import javax.swing.table.AbstractTableModel;
 
 import org.jdesktop.swingx.JXTable;
 
+import supervisionApp.ihm.controller.SupervisionController;
+
 public class Table extends JPanel {
 
 	private static final long serialVersionUID = -2739124138805812437L;
@@ -26,8 +28,11 @@ public class Table extends JPanel {
 	private JMenuItem menuItemKillProcess = null;
 	private JTable table = null;
 	private String processName = null;
+	
+	private SupervisionController supervisionController = null;
 
-	public Table() {
+	public Table(SupervisionController supervisionController) {
+		this.supervisionController = supervisionController;
 		initComponents();
 	}
 
@@ -57,7 +62,7 @@ public class Table extends JPanel {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				//if (isAdmin) {
+				if (supervisionController.getUser().isAdmin()) {
 					if (SwingUtilities.isRightMouseButton(e)) {
 						if (popupMenu == null) {
 							createJPopupMenu();
@@ -72,7 +77,7 @@ public class Table extends JPanel {
 						}
 					}
 				}
-			//}
+			}
 		});
 	}
 
