@@ -31,16 +31,18 @@ public class ShowClientPost extends JFrame {
 		String dirName = "C:\\client_connected\\";
 		File dir = new File(dirName);
 		File[] f = dir.listFiles();
-		// int x = 0;
+		int x = 0;
 		for (int i = 0; i < f.length; i++) {
 			if (f[i].isFile()) {
-				// x++;
+				x++;
+				
 				fileNameList.add(String.valueOf(f[i]));
 				String fullClientName = String.valueOf(f[i]);
 				int index = fullClientName.lastIndexOf('\\');
 				String clientNameTxt = fullClientName.substring(index + 1);
 				String[] split = clientNameTxt.split(".txt");
 				String clientName = split[0];
+				System.out.println("clientName = " + clientName);
 
 				JPanel createNewClientPanel = createNewClientPanel(clientName);
 				mainPanel.add(createNewClientPanel);
@@ -58,7 +60,7 @@ public class ShowClientPost extends JFrame {
 	}
 
 	private JPanel createNewClientPanel(String fileName) {
-
+		boolean isMine = false;
 		String hostName = null;
 		InetAddress localHostIp = null;
 		try {
@@ -69,12 +71,18 @@ public class ShowClientPost extends JFrame {
 			e1.printStackTrace();
 		}
 		if (fileName.equals(hostName)) {
-			hostName = hostName + " (yours)";
+			isMine = true;
 		}
 
+		JButton button = new JButton();
 		JPanel newClientPanel = new JPanel();
 		newClientPanel.setBackground(Color.WHITE);
-		JButton button = new JButton(hostName + "   ");
+		if(isMine) {
+			button.setText(fileName + " (yours)");
+		}else {
+			button.setText(fileName);
+		}
+		
 		button.setBackground(Color.BLACK);
 		button.setForeground(Color.WHITE);
 		newClientPanel.setLayout(new BorderLayout());
