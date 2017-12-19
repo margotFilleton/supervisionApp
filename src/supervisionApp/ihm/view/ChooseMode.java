@@ -67,7 +67,7 @@ public class ChooseMode extends JFrame {
 				boolean selectedLocalMode = checkBoxLocalMode.isSelected();
 				if (selectedConnected) {
 					ChooseMode.this.dispose();
-					new Frame(MODE_CONNECTED);
+					new ShowClientPost();
 				} else if (selectedLocalMode) {
 					ChooseMode.this.dispose();
 					new Frame(MODE_LOCAL);

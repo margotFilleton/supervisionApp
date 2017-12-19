@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 
 import com.sun.management.OperatingSystemMXBean;
 
+@SuppressWarnings("restriction")
 public class InformationPC extends JPanel {
 
 	private static final long serialVersionUID = 2335438835766719594L;
