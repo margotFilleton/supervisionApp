@@ -1,58 +1,31 @@
 package supervisionApp.ihm.view;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.swing.JFrame;
+
+import supervisionApp.ihm.model.ClientTableModel;
 
 public class ProcessClient extends JFrame {
 
 	private static final long serialVersionUID = 2528294466135748509L;
 
-	private static String SEPARATOR = ":";
-	private Map<String, String> mapAppliAndTaille = null;
-	private Map<String, String> mapServiceAndPID = null;
+	private String finalFinalName = null;
 
 	public ProcessClient(String fileName) {
-		readClientFile(fileName + ".txt");
+		finalFinalName = fileName + ".txt";
+		initComponent();
 	}
 
-	private void readClientFile(String fileName) {
-		if (mapAppliAndTaille == null) {
-			mapAppliAndTaille = new HashMap<String, String>();
-			mapServiceAndPID = new HashMap<String, String>();
-		}
-		BufferedReader br = null;
-		try {
-			br = new BufferedReader(new FileReader("C:\\client_connected\\" + fileName));
-			String line = null;
-			try {
-				while ((line = br.readLine()) != null) {
-					System.out.println("line = " + line);
-					String[] split = line.split(SEPARATOR);
+	private void initComponent() {
+		ClientTable tableClient = new ClientTable();
+		ClientTableModel tableModel = new ClientTableModel(finalFinalName);
+		tableClient.setModel(tableModel);
+		tableModel.startMonitoring();
 
-					String appliRun = split[0].trim();
-					String PID = split[1].trim();
-					String service = split[3].trim();
-					String taille = split[4].trim();
-
-					System.out.println("appliRun = " + appliRun);
-					System.out.println("PID = " + PID);
-					
-					System.out.println("service = " + service);
-					System.out.println("taille = " + taille);
-				}
-				br.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
+		this.add(tableClient);
+		this.setSize(600, 600);
+		this.setLocationRelativeTo(null);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setTitle(finalFinalName);
+		this.setVisible(true);
 	}
-
 }

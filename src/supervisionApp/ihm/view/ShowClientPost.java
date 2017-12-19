@@ -31,19 +31,14 @@ public class ShowClientPost extends JFrame {
 		String dirName = "C:\\client_connected\\";
 		File dir = new File(dirName);
 		File[] f = dir.listFiles();
-		int x = 0;
 		for (int i = 0; i < f.length; i++) {
 			if (f[i].isFile()) {
-				x++;
-				
 				fileNameList.add(String.valueOf(f[i]));
 				String fullClientName = String.valueOf(f[i]);
 				int index = fullClientName.lastIndexOf('\\');
 				String clientNameTxt = fullClientName.substring(index + 1);
 				String[] split = clientNameTxt.split(".txt");
 				String clientName = split[0];
-				System.out.println("clientName = " + clientName);
-
 				JPanel createNewClientPanel = createNewClientPanel(clientName);
 				mainPanel.add(createNewClientPanel);
 			}
@@ -77,12 +72,12 @@ public class ShowClientPost extends JFrame {
 		JButton button = new JButton();
 		JPanel newClientPanel = new JPanel();
 		newClientPanel.setBackground(Color.WHITE);
-		if(isMine) {
+		if (isMine) {
 			button.setText(fileName + " (yours)");
-		}else {
+		} else {
 			button.setText(fileName);
 		}
-		
+
 		button.setBackground(Color.BLACK);
 		button.setForeground(Color.WHITE);
 		newClientPanel.setLayout(new BorderLayout());

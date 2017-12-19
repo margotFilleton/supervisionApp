@@ -1,12 +1,10 @@
 package supervisionApp.ihm.view;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.InputStream;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Insets;
 import java.io.IOException;
 import java.util.Map;
 
