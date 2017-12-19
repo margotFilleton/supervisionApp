@@ -177,7 +177,7 @@ public class Frame extends JFrame {
 		JPanel panelJVMProcess = jvmProcessChart.createChartPanel();
 		jvmProcessChart.startMonitoring(tabPane, panelJVMProcess);
 
-		chartModel.startMonitoring();
+		chartModel.startMonitoring(false, null);
 
 		InformationPC informationPC = new InformationPC();
 

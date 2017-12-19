@@ -165,7 +165,7 @@ public class ConnectionManager {
 			    }
 			    else
 			    {
-			    	System.out.println("Nope");
+			    	//System.out.println("Nope");
 			    }
 			    
 			}

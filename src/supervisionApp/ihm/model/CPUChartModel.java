@@ -1,7 +1,5 @@
 package supervisionApp.ihm.model;
 
-
-
 import org.jfree.data.time.Second;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
@@ -9,32 +7,40 @@ import org.jfree.data.time.TimeSeriesCollection;
 public class CPUChartModel {
 
 	private IChartModelListener listener;
-	private TimeSeriesCollection dataset ;
+	private TimeSeriesCollection dataset;
 	private TimeSeries series;
 	private CPUInformation cpuInformation;
 	private boolean started = false;
-	
-	private int refreshingCPUPeriod = 500; 
+
+	private int refreshingCPUPeriod = 500;
 
 	public CPUChartModel(final IChartModelListener listener) {
 		this.listener = listener;
 		dataset = new TimeSeriesCollection();
-		
+
 		cpuInformation = new CPUInformation();
 		series = new TimeSeries("CPU Usage");
 		dataset.addSeries(series);
 	}
 
-	private void createDataset() {
-		String myCPU = cpuInformation.getMyCPU();
-		myCPU = myCPU.replaceAll(",", ".");
-		double cpuValue = Double.valueOf(myCPU);
-	
-		series.addOrUpdate(new Second(), cpuValue);
-		listener.dataChanged(dataset);
+	private void createDataset(boolean isAClient, String cpuClient) {
+		if (isAClient) {
+			cpuClient = cpuClient.replaceAll(",", ".");
+			double cpuValue = Double.valueOf(cpuClient);
+			series.addOrUpdate(new Second(), cpuValue);
+			listener.dataChanged(dataset);
+		} else {
+			String myCPU = cpuInformation.getMyCPU();
+			myCPU = myCPU.replaceAll(",", ".");
+			double cpuValue = Double.valueOf(myCPU);
+
+			series.addOrUpdate(new Second(), cpuValue);
+			listener.dataChanged(dataset);
+		}
+
 	}
-	
-	public void startMonitoring() {
+
+	public void startMonitoring(boolean isAClient, String cpuClient) {
 		if (!started) {
 			started = true;
 			Thread thread = new Thread() {
@@ -46,7 +52,8 @@ public class CPUChartModel {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-						createDataset();
+
+						createDataset(isAClient, cpuClient);
 					}
 				};
 			};
@@ -59,7 +66,7 @@ public class CPUChartModel {
 			started = false;
 		}
 	}
-	
+
 	public int getRefreshingCPUPeriod() {
 		return refreshingCPUPeriod;
 	}

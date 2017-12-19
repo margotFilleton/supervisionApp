@@ -24,7 +24,7 @@ public class ClientTableModel extends DefaultTableModel {
 	private ArrayList<String> listServices = null;
 	private ArrayList<String> listTaille = null;
 
-	private String cpuClient = null;
+	private String cpuClient = "5";
 
 	private static int RESHING_PERIOD = 500;
 	private static String SEPARATOR = ":";
