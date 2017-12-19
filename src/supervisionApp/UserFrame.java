@@ -64,7 +64,7 @@ public class UserFrame {
 		frame.setIconImage(new ImageIcon("icons\\database.png").getImage());
 		
 		ConnectionManager newConnection = new ConnectionManager("jdbc:mysql://192.168.20.56:3306/projet","root","password");
-		
+		boolean connectDB = newConnection.ConnectDB();
 		JLabel lblUser = new JLabel("Utilisateur");
 		
 		textFieldUser = new JTextField();

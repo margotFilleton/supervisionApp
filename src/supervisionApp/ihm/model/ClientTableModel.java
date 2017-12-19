@@ -24,6 +24,8 @@ public class ClientTableModel extends DefaultTableModel {
 	private ArrayList<String> listServices = null;
 	private ArrayList<String> listTaille = null;
 
+	private String cpuClient = null;
+
 	private static int RESHING_PERIOD = 500;
 	private static String SEPARATOR = ":";
 
@@ -83,8 +85,6 @@ public class ClientTableModel extends DefaultTableModel {
 		default:
 			throw new IllegalArgumentException();
 		}
-
-		System.out.println("value = " + value);
 		return value;
 	}
 
@@ -110,6 +110,12 @@ public class ClientTableModel extends DefaultTableModel {
 				while ((line = br.readLine()) != null) {
 					String[] split = line.split(SEPARATOR);
 					processList.add(line);
+					if (line.contains("CPU=")) {
+						String[] splitey = line.split("=");
+						String CPUValue = splitey[1];
+						setCpuClient(CPUValue);
+					}
+
 					if (split.length == 4) {
 						String appliRun = split[0].trim();
 						String PID = split[1].trim();
@@ -215,4 +221,13 @@ public class ClientTableModel extends DefaultTableModel {
 	public void setListTaille(ArrayList<String> listTaille) {
 		this.listTaille = listTaille;
 	}
+
+	public String getCpuClient() {
+		return cpuClient;
+	}
+
+	public void setCpuClient(String cpuClient) {
+		this.cpuClient = cpuClient;
+	}
+
 }

@@ -35,7 +35,7 @@ public class ShowClientPost extends JFrame {
 		File[] f = dir.listFiles();
 		for (int i = 0; i < f.length; i++) {
 			if (f[i].isFile()) {
-				
+
 				fileNameList.add(String.valueOf(f[i]));
 				String fullClientName = String.valueOf(f[i]);
 				int index = fullClientName.lastIndexOf('\\');
