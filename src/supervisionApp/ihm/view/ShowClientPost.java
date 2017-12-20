@@ -22,9 +22,10 @@ public class ShowClientPost extends JFrame {
 	private static final long serialVersionUID = 6017672191027006837L;
 	private ArrayList<String> fileNameList = null;
 	private JPanel mainPanel = null;
+	private SupervisionController supervisionController = null; 
 
 	public ShowClientPost(SupervisionController supervisionController) {
-
+		this.supervisionController = supervisionController;
 		mainPanel = new JPanel();
 
 		if (fileNameList == null) {
@@ -93,7 +94,7 @@ public class ShowClientPost extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				ShowClientPost.this.dispose();
-				new ProcessClient(fileName);
+				new ProcessClient(supervisionController , fileName);
 			}
 		});
 

@@ -85,7 +85,6 @@ public class MyTableModel extends DefaultTableModel {
 		default:
 			throw new IllegalArgumentException();
 		}
-		System.out.println("value = " + value);
 		return value;
 	}
 

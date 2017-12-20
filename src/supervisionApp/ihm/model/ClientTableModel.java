@@ -24,12 +24,25 @@ public class ClientTableModel extends DefaultTableModel {
 	private ArrayList<String> listServices = null;
 	private ArrayList<String> listTaille = null;
 
-	private String cpuClient = "5";
-
 	private static int RESHING_PERIOD = 500;
 	private static String SEPARATOR = ":";
 
 	private String fileName = null;
+
+	private boolean isCheckPCInfo = true;
+
+	private String nbProcess = null;
+	private String osName = null;
+	private String osVersion = null;
+	private String hostName = null;
+	private String ipAdress = null;
+	private String processId = null;
+	private String processArchi = null;
+	private String MACAdress = null;
+
+	private List<String> listInformationPC = null;
+
+	private String CPUValue = null;
 
 	public ClientTableModel(String fileName) {
 		this.fileName = fileName;
@@ -112,8 +125,7 @@ public class ClientTableModel extends DefaultTableModel {
 					processList.add(line);
 					if (line.contains("CPU=")) {
 						String[] splitey = line.split("=");
-						String CPUValue = splitey[1];
-						setCpuClient(CPUValue);
+						CPUValue = splitey[1];
 					}
 
 					if (split.length == 4) {
@@ -132,6 +144,46 @@ public class ClientTableModel extends DefaultTableModel {
 						//
 						// System.out.println("service = " + service);
 						// System.out.println("taille = " + taille);
+					}
+
+					if (isCheckPCInfo) {
+						listInformationPC = new ArrayList<>();
+						if (line.contains("nbProcess=")) {
+							String[] splitey = line.split("=");
+							nbProcess = splitey[1];
+							listInformationPC.add(nbProcess);
+						} else if (line.contains("osName=")) {
+							String[] splitey = line.split("=");
+							osName = splitey[1];
+							listInformationPC.add(osName);
+						} else if (line.contains("osVersion=")) {
+							String[] splitey = line.split("=");
+							osVersion = splitey[1];
+							listInformationPC.add(osVersion);
+						} else if (line.contains("hostName=")) {
+							String[] splitey = line.split("=");
+							hostName = splitey[1];
+							listInformationPC.add(hostName);
+						} else if (line.contains("ipAdress=")) {
+							String[] splitey = line.split("=");
+							ipAdress = splitey[1];
+							listInformationPC.add(ipAdress);
+						} else if (line.contains("processId=")) {
+							String[] splitey = line.split("=");
+							processId = splitey[1];
+							listInformationPC.add(processId);
+						} else if (line.contains("processArchi=")) {
+							String[] splitey = line.split("=");
+							processArchi = splitey[1];
+							listInformationPC.add(processArchi);
+						} else if (line.contains("MACAdress=")) {
+							String[] splitey = line.split("=");
+							MACAdress = splitey[1];
+							listInformationPC.add(MACAdress);
+						}
+
+						System.out.println("MACAdress = " + MACAdress);
+						isCheckPCInfo = false;
 					}
 				}
 				this.fireTableDataChanged();
@@ -223,11 +275,14 @@ public class ClientTableModel extends DefaultTableModel {
 	}
 
 	public String getCpuClient() {
-		return cpuClient;
+		return CPUValue;
 	}
+	//
+	// public void setCpuClient(String cpuClient) {
+	// this.cpuClient = cpuClient;
+	// }
 
-	public void setCpuClient(String cpuClient) {
-		this.cpuClient = cpuClient;
+	public List<String> getInfoPC() {
+		return listInformationPC;
 	}
-
 }

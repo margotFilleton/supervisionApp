@@ -1,5 +1,7 @@
 package supervisionApp.ihm.view;
 
+import java.util.List;
+
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.table.TableModel;
@@ -8,6 +10,7 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.data.xy.XYDataset;
 
+import supervisionApp.ihm.controller.SupervisionController;
 import supervisionApp.ihm.model.CPUChartModel;
 import supervisionApp.ihm.model.ClientTableModel;
 import supervisionApp.ihm.model.IChartModelListener;
@@ -27,7 +30,10 @@ public class ProcessClient extends JFrame {
 	private CPUChartPanel cpuChartPanel = null;
 	private CPUChartModel cpuChartModel = null;
 
-	public ProcessClient(String fileName) {
+	private SupervisionController supervisionController = null;
+
+	public ProcessClient(SupervisionController supervisionController, String fileName) {
+		this.supervisionController = supervisionController;
 		finalFinalName = fileName + ".txt";
 		initComponent();
 	}
@@ -35,12 +41,12 @@ public class ProcessClient extends JFrame {
 	private void initComponent() {
 
 		tabPane = new JTabbePanelData();
-		tableClient = new ClientTable();
+		tableClient = new ClientTable(supervisionController);
 		tableModel = new ClientTableModel(finalFinalName);
 
 		tableClient.setModel(tableModel);
 		tableModel.startMonitoring();
-		
+
 		cpuChartPanel = new CPUChartPanel();
 		CPUChartPanel cpuChartPanel = new CPUChartPanel();
 		cpuChartModel = new CPUChartModel(new IChartModelListener() {
@@ -52,11 +58,12 @@ public class ProcessClient extends JFrame {
 			}
 		});
 
-		String cpuClient = getCPUClient();
-		if (cpuClient != null) {
-			cpuChartModel.startMonitoring(true, getCPUClient());
-		}
+		cpuChartModel.startMonitoring(true, tableModel);
 
+		List<String> infoPC = tableModel.getInfoPC();
+		System.out.println("infoPC = " + infoPC);
+		ClientPCInformationPanel clientPCInformationPanel = new ClientPCInformationPanel(infoPC);
+		clientPCInformationPanel.getAllInfo();
 
 		tabPane.addMyTab("Process Memory", tableClient);
 		tabPane.setIconAt(0, (new ImageIcon("icons\\chip.png")));
@@ -67,7 +74,7 @@ public class ProcessClient extends JFrame {
 		// tabPane.addMyTab("CPU", cpuChartPanel);
 		// tabPane.setIconAt(1, (new ImageIcon("icons\\line-chart.png")));
 
-		// tabPane.addMyTab("Informations System", informationPC);
+		// tabPane.addMyTab("Informations System", clientPCInformationPanel);
 		// tabPane.setIconAt(3, (new ImageIcon("icons\\computer.png")));
 		// tabPane.addMyTab("JVM", panelJVMProcess);
 		// tabPane.setIconAt(4, (new ImageIcon("icons\\java.png")));
@@ -78,9 +85,5 @@ public class ProcessClient extends JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setTitle(finalFinalName);
 		this.setVisible(true);
-	}
-
-	private String getCPUClient() {
-		return tableModel.getCpuClient();
 	}
 }

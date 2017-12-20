@@ -15,6 +15,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 
+import supervisionApp.ihm.controller.SupervisionController;
 import supervisionApp.ihm.model.ClientTableModel;
 
 public class ClientTable extends JPanel {
@@ -25,7 +26,10 @@ public class ClientTable extends JPanel {
 	private JTable table = null;
 	private String processName = null;
 
-	public ClientTable() {
+	private SupervisionController supervisionController = null;
+
+	public ClientTable(SupervisionController supervisionController) {
+		this.supervisionController = supervisionController;
 		initComponents();
 	}
 
@@ -55,22 +59,22 @@ public class ClientTable extends JPanel {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				// if (isAdmin) {
-				if (SwingUtilities.isRightMouseButton(e)) {
-					if (popupMenu == null) {
-						createJPopupMenu();
-					}
-					int selectedRow = table.getSelectedRow();
-					if (selectedRow != -1) {
+				if (supervisionController.getUser().isAdmin()) {
+					if (SwingUtilities.isRightMouseButton(e)) {
+						if (popupMenu == null) {
+							createJPopupMenu();
+						}
+						int selectedRow = table.getSelectedRow();
+						if (selectedRow != -1) {
 
-						processName = (String) table.getValueAt(selectedRow, 0);
-						popupMenu.show(e.getComponent(), e.getX(), e.getY());
-					} else {
-						System.out.println("selectedRow = " + selectedRow);
+							processName = (String) table.getValueAt(selectedRow, 0);
+							popupMenu.show(e.getComponent(), e.getX(), e.getY());
+						} else {
+							System.out.println("selectedRow = " + selectedRow);
+						}
 					}
 				}
 			}
-			// }
 		});
 	}
 

@@ -23,10 +23,11 @@ public class CPUChartModel {
 		dataset.addSeries(series);
 	}
 
-	private void createDataset(boolean isAClient, String cpuClient) {
+	private void createDataset(boolean isAClient, ClientTableModel cpuClient) {
 		if (isAClient) {
-			cpuClient = cpuClient.replaceAll(",", ".");
-			double cpuValue = Double.valueOf(cpuClient);
+			String cpuClient2 = cpuClient.getCpuClient();
+			cpuClient2 = cpuClient2.replaceAll(",", ".");
+			double cpuValue = Double.valueOf(cpuClient2);
 			series.addOrUpdate(new Second(), cpuValue);
 			listener.dataChanged(dataset);
 		} else {
@@ -40,7 +41,7 @@ public class CPUChartModel {
 
 	}
 
-	public void startMonitoring(boolean isAClient, String cpuClient) {
+	public void startMonitoring(boolean isAClient, ClientTableModel tableModel) {
 		if (!started) {
 			started = true;
 			Thread thread = new Thread() {
@@ -49,11 +50,9 @@ public class CPUChartModel {
 						try {
 							Thread.sleep(refreshingCPUPeriod);
 						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-
-						createDataset(isAClient, cpuClient);
+						createDataset(isAClient, tableModel);
 					}
 				};
 			};
