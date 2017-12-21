@@ -60,10 +60,7 @@ public class ProcessClient extends JFrame {
 
 		cpuChartModel.startMonitoring(true, tableModel);
 
-		List<String> infoPC = tableModel.getInfoPC();
-		System.out.println("infoPC = " + infoPC);
-		ClientPCInformationPanel clientPCInformationPanel = new ClientPCInformationPanel(infoPC);
-		clientPCInformationPanel.getAllInfo();
+		ClientPCInformationPanel clientPCInformationPanel = new ClientPCInformationPanel(tableModel);
 
 		tabPane.addMyTab("Process Memory", tableClient);
 		tabPane.setIconAt(0, (new ImageIcon("icons\\chip.png")));

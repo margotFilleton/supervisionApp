@@ -181,8 +181,6 @@ public class ClientTableModel extends DefaultTableModel {
 							MACAdress = splitey[1];
 							listInformationPC.add(MACAdress);
 						}
-
-						System.out.println("MACAdress = " + MACAdress);
 						isCheckPCInfo = false;
 					}
 				}

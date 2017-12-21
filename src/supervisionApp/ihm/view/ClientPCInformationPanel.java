@@ -5,6 +5,8 @@ import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import supervisionApp.ihm.model.ClientTableModel;
+
 public class ClientPCInformationPanel extends JPanel {
 
 	private static final long serialVersionUID = 1617430828874825649L;
@@ -21,8 +23,9 @@ public class ClientPCInformationPanel extends JPanel {
 
 	private List<String> infoPC = null;
 
-	public ClientPCInformationPanel(List<String> infoPC) {
-		this.infoPC = infoPC;
+	public ClientPCInformationPanel(ClientTableModel model) {
+		List<String> infoPC2 = model.getInfoPC();
+		System.out.println("INFO PCCCC = " + infoPC2);
 	}
 
 	public void getAllInfo() {
