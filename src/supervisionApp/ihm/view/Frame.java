@@ -60,6 +60,8 @@ public class Frame extends JFrame {
 		JMenuItem menuItemStartRefreshingTablePeriod = new JMenuItem("Stop refreshing table period");
 		JMenuItem menuItemChangeRefreshingPeriod = new JMenuItem("Change process memory refreshing period");
 		JMenuItem menuItemExit = new JMenuItem("Exit");
+		
+		JMenuItem menuItemShowProcessKilled = new JMenuItem("Show process killed");
 
 		JCheckBoxMenuItem menuChangeSizeKo = new JCheckBoxMenuItem("Change size on Ko");
 
@@ -79,7 +81,10 @@ public class Frame extends JFrame {
 		// menuFile.addSeparator();
 		menuFile.add(menuItemExit);
 
+		menuPreference.add(menuItemShowProcessKilled);
+		menuPreference.addSeparator();
 		menuPreference.add(menuChangeSizeKo);
+
 		menuChangeSizeKo.setSelected(false);
 
 		menubar.add(menuFile);
@@ -124,6 +129,14 @@ public class Frame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				showInKo = menuChangeSizeKo.isSelected();
 				tableModel.setShowOnKo(showInKo);
+			}
+		});
+		
+		menuItemShowProcessKilled.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new ProcessKilledFrame(supervisionController.getListProcessKilled());
 			}
 		});
 

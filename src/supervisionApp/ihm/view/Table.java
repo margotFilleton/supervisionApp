@@ -6,6 +6,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JMenuItem;
@@ -28,7 +30,9 @@ public class Table extends JPanel {
 	private JMenuItem menuItemKillProcess = null;
 	private JTable table = null;
 	private String processName = null;
-	
+
+	private List<String> listProcessKill = null;
+
 	private SupervisionController supervisionController = null;
 
 	public Table(SupervisionController supervisionController) {
@@ -62,18 +66,19 @@ public class Table extends JPanel {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if (supervisionController.getUser().isAdmin()) {
-					if (SwingUtilities.isRightMouseButton(e)) {
-						if (popupMenu == null) {
-							createJPopupMenu();
-						}
-						int selectedRow = table.getSelectedRow();
-						if (selectedRow != -1) {
+				if (supervisionController.getUser() != null) {
+					if (supervisionController.getUser().isAdmin()) {
+						if (SwingUtilities.isRightMouseButton(e)) {
+							if (popupMenu == null) {
+								createJPopupMenu();
+							}
+							int selectedRow = table.getSelectedRow();
+							if (selectedRow != -1) {
 
-							processName = (String) table.getValueAt(selectedRow, 0);
-							popupMenu.show(e.getComponent(), e.getX(), e.getY());
-						} else {
-							System.out.println("selectedRow = " + selectedRow);
+								processName = (String) table.getValueAt(selectedRow, 0);
+								popupMenu.show(e.getComponent(), e.getX(), e.getY());
+							} else {
+							}
 						}
 					}
 				}
@@ -94,6 +99,12 @@ public class Table extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					Runtime.getRuntime().exec("TASKKILL /F /IM " + processName);
+					if (listProcessKill == null) {
+						listProcessKill = new ArrayList<>();
+					}
+
+					listProcessKill.add(processName);
+					supervisionController.setListProcessKilled(listProcessKill);
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
