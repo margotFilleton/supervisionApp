@@ -102,7 +102,7 @@ public class Table extends JPanel {
 					if (listProcessKill == null) {
 						listProcessKill = new ArrayList<>();
 					}
-
+					System.out.println("processKill = " + processName);
 					listProcessKill.add(processName);
 					supervisionController.setListProcessKilled(listProcessKill);
 				} catch (IOException e1) {
