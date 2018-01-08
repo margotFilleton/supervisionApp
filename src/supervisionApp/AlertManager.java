@@ -24,7 +24,7 @@ public class AlertManager {
 		this.user = user;
 	}
 	
-	public void SendAlert() throws MailjetException, MailjetSocketTimeoutException {
+	public void SendAlert(String msg) throws MailjetException, MailjetSocketTimeoutException {
 		MailjetClient client;
 		MailjetRequest request;
 		MailjetResponse response;
@@ -43,14 +43,26 @@ public class AlertManager {
 	}
 	
 	
-	public void CheckIfAlert() {
-		//TODO
+	public void CheckIfAlert(Computer computer) {
+		if(computer.getPercentageCPU() >= 80.0) {
+			try {
+				this.SendAlert(msgMemoryFull);
+			} catch (MailjetException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (MailjetSocketTimeoutException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		//TODO Process off
 	}
 
 	public static void main(String[] args) {
 		AlertManager alert = new AlertManager(new User("margot", "filleton","margot.filleton@gmail.com",true));
 		try {
-			alert.SendAlert();
+			alert.SendAlert("test");
 		} catch (MailjetException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
