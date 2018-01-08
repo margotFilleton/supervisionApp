@@ -7,13 +7,15 @@ import com.mailjet.client.MailjetRequest;
 import com.mailjet.client.MailjetResponse;
 import com.mailjet.client.resource.Email;
 
+import java.util.List;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 
 public class AlertManager {
 	
-	private String msgProcessStop = "Alerte : un processus ne tourne plus";
+	private String msgProcessStop = "Alerte : un processus ne tourne plus, processus : ";
 	private String msgMemoryFull  = "Alerte : memoire pleine";
 	private User user;
 	
@@ -55,8 +57,22 @@ public class AlertManager {
 				e.printStackTrace();
 			}
 		}
+		List<Process> localList = computer.getProcessList();
 		
-		//TODO Process off
+		for (int i = 0; i < localList.size(); i++) {
+			if(localList.get(i).isStart() == false) {
+				try {
+					this.SendAlert(msgProcessStop + localList.get(i).getName());
+				} catch (MailjetException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (MailjetSocketTimeoutException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		
 	}
 
 	public static void main(String[] args) {
