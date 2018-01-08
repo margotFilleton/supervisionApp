@@ -63,6 +63,8 @@ public class UserFrame {
 		frame.setTitle("Connection to the DataBase");
 		frame.setIconImage(new ImageIcon("icons\\database.png").getImage());
 		
+		String ipAdress = "192.168.20.56";
+		
 		ConnectionManager newConnection = new ConnectionManager("jdbc:mysql://192.168.20.56:3306/projet","root","password");
 		boolean connectDB = newConnection.ConnectDB();
 		JLabel lblUser = new JLabel("Utilisateur");
