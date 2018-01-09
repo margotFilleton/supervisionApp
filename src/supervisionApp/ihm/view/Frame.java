@@ -23,6 +23,7 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.data.xy.XYDataset;
 
+import supervisionApp.Computer;
 import supervisionApp.ihm.controller.SupervisionController;
 import supervisionApp.ihm.model.CPUChartModel;
 import supervisionApp.ihm.model.IChartModelListener;
@@ -99,6 +100,9 @@ public class Frame extends JFrame {
 			}
 		});
 		MyTableModel tableModel = new MyTableModel();
+		
+		supervisionController.setMapNomTaille(tableModel.getMapNomTaille());
+		supervisionController.setProcessList(tableModel.getProcessList());
 
 		menuItemChangeRefreshingPeriod.addActionListener(new ActionListener() {
 
@@ -221,6 +225,7 @@ public class Frame extends JFrame {
 
 		setLayout(new BorderLayout());
 		add(tabPane, BorderLayout.CENTER);
+		new Computer(supervisionController);
 
 		// setContentPane(tabPane);
 		setVisible(true);

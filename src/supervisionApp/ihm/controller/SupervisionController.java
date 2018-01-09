@@ -1,6 +1,7 @@
 package supervisionApp.ihm.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import supervisionApp.User;
 
@@ -8,7 +9,9 @@ public class SupervisionController {
 
 	private User user;
 	
-	private List<String> processKilled;
+	private List<String> processKilled = null;
+	private List<String> processList = null;
+	private Map<String, String> mapNomTaille = null;
 
 	public SupervisionController() {
 
@@ -28,6 +31,23 @@ public class SupervisionController {
 
 	public void setListProcessKilled(List<String> processKilled) {
 		this.processKilled = processKilled;
+	}
+	
+	public List<String> getProcessList() {
+		return processList;
+	}
+
+	public void setProcessList(List<String> processList) {
+		this.processList = processList;
+	}
+	
+
+	public Map<String, String> getMapNomTaille() {
+		return mapNomTaille;
+	}
+
+	public void setMapNomTaille(Map<String, String> mapNomTaille) {
+		this.mapNomTaille = mapNomTaille;
 	}
 
 }

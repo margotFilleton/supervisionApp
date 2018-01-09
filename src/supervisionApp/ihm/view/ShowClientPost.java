@@ -15,6 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import supervisionApp.Computer;
 import supervisionApp.ihm.controller.SupervisionController;
 
 public class ShowClientPost extends JFrame {
@@ -47,8 +48,8 @@ public class ShowClientPost extends JFrame {
 				mainPanel.add(createNewClientPanel);
 			}
 		}
-
-		mainPanel.setBackground(Color.WHITE);
+		new Computer(supervisionController);
+		mainPanel.setBackground(Color.CYAN);
 		this.add(mainPanel);
 		this.setSize(600, 600);
 		this.setLocationRelativeTo(null);

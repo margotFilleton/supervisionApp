@@ -20,7 +20,7 @@ public class MyTableModel extends DefaultTableModel {
 	private static final String[] columnName = new String[] { "Nom", "PID", "Services", "Taille" };
 	private boolean started = false;
 	private static List<String> processList = null;
-
+	
 	private boolean isShowOnKo = false;
 
 	private ArrayList<String> listNom = null;
@@ -249,6 +249,11 @@ public class MyTableModel extends DefaultTableModel {
 
 	public void setMapNomTaille(Map<String, String> mapNomTaille) {
 		this.mapNomTaille = mapNomTaille;
+	}
+	
+
+	public List<String> getProcessList() {
+		return processList;
 	}
 
 }

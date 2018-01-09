@@ -8,6 +8,7 @@ public class Process {
 	private float disk;
 	private float network;
 	private boolean isStart;
+	private float size; 
 	
 	/**
 	 * @return the name
@@ -67,6 +68,12 @@ public class Process {
 		this.memory = memory;
 		this.disk = disk;
 		this.network = network;
+		this.isStart = isStart;
+	}
+	
+	public Process(String name, float size, boolean isStart) {
+		this.name = name;
+		this.size = size;
 		this.isStart = isStart;
 	}
 

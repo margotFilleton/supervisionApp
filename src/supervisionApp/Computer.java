@@ -1,43 +1,79 @@
 package supervisionApp;
+
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import supervisionApp.ihm.controller.SupervisionController;
+import supervisionApp.ihm.model.CPUInformation;
 
 public class Computer {
-	
+
+	CPUInformation cpuInformation = null;
+
 	private List<Process> processList;
-	private float percentageCPU;
-	private float memoryUsed;
-	private float memoryMax;
-	
+	private List<String> processKilledList;
+	private long memoryUsed;
+	private long memoryMax;
+
+	public Computer(SupervisionController controller) {
+
+		processList = new ArrayList<>();
+		processKilledList = controller.getListProcessKilled();
+
+		Map<String, String> mapNomTaille = controller.getMapNomTaille();
+		for (Map.Entry<String, String> entry : mapNomTaille.entrySet()) {
+			String key = entry.getKey();
+			String value = entry.getValue();
+			Float size = Float.valueOf(value);
+			processList.add(new Process(key, size, true));
+		}
+
+		long freeMemory = Runtime.getRuntime().freeMemory();
+		memoryMax = Runtime.getRuntime().totalMemory();
+
+		memoryUsed = memoryMax - freeMemory;
+	}
+
 	/**
 	 * @return the processList
 	 */
 	public List<Process> getProcessList() {
-		//TODO
 		return processList;
 	}
-	
+
 	/**
 	 * @return the percentageCPU
 	 */
-	public float getPercentageCPU() {
-		//TODO
+	public double getPercentageCPU() {
+		if (cpuInformation == null) {
+			cpuInformation = new CPUInformation();
+		}
+		String myCPU = cpuInformation.getMyCPU();
+		double percentageCPU = Double.valueOf(myCPU);
 		return percentageCPU;
 	}
-	
+
 	/**
 	 * @return the memoryUsed
 	 */
-	public float getMemoryUsed() {
-		//TODO
+	public long getMemoryUsed() {
 		return memoryUsed;
 	}
-	
+
 	/**
 	 * @return the memoryMax
 	 */
-	public float getMemoryMax() {
-		//TODO
+	public long getMemoryMax() {
 		return memoryMax;
+	}
+
+	/**
+	 * @return the processKilled
+	 */
+	public List<String> getProcessKilled() {
+		return processKilledList;
 	}
 
 }
