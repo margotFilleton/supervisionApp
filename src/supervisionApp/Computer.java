@@ -22,11 +22,15 @@ public class Computer {
 		processKilledList = controller.getListProcessKilled();
 
 		Map<String, String> mapNomTaille = controller.getMapNomTaille();
-		for (Map.Entry<String, String> entry : mapNomTaille.entrySet()) {
-			String key = entry.getKey();
-			String value = entry.getValue();
-			Float size = Float.valueOf(value);
-			processList.add(new Process(key, size, true));
+		if (mapNomTaille != null) {
+			for (Map.Entry<String, String> entry : mapNomTaille.entrySet()) {
+				String key = entry.getKey();
+				String value = entry.getValue();
+				Float size = Float.valueOf(value);
+				processList.add(new Process(key, size, true));
+			}
+		}else {
+			System.out.println("map null");
 		}
 
 		long freeMemory = Runtime.getRuntime().freeMemory();

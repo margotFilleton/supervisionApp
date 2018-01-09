@@ -48,8 +48,7 @@ public class ShowClientPost extends JFrame {
 				mainPanel.add(createNewClientPanel);
 			}
 		}
-		new Computer(supervisionController);
-		mainPanel.setBackground(Color.CYAN);
+		mainPanel.setBackground(Color.WHITE);
 		this.add(mainPanel);
 		this.setSize(600, 600);
 		this.setLocationRelativeTo(null);

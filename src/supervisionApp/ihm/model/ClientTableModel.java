@@ -104,11 +104,15 @@ public class ClientTableModel extends DefaultTableModel {
 	private void readData() {
 		if (processList == null) {
 			processList = new ArrayList<>();
+		}
+
+		if (listNom == null) {
 			listNom = new ArrayList<>();
 			listPID = new ArrayList<>();
 			listServices = new ArrayList<>();
 			listTaille = new ArrayList<>();
 		}
+		
 		processList.clear();
 		listNom.clear();
 		listPID.clear();

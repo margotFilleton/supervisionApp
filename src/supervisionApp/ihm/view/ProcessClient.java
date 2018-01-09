@@ -1,15 +1,20 @@
 package supervisionApp.ihm.view;
 
-import java.util.List;
+import java.awt.MenuItem;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.table.TableModel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.data.xy.XYDataset;
 
+import supervisionApp.Computer;
 import supervisionApp.ihm.controller.SupervisionController;
 import supervisionApp.ihm.model.CPUChartModel;
 import supervisionApp.ihm.model.ClientTableModel;
@@ -30,6 +35,10 @@ public class ProcessClient extends JFrame {
 	private CPUChartPanel cpuChartPanel = null;
 	private CPUChartModel cpuChartModel = null;
 
+	private JMenuBar menuBar = null;
+	private JMenu menuFile = null;
+	private JMenuItem menuReturn = null;
+
 	private SupervisionController supervisionController = null;
 
 	public ProcessClient(SupervisionController supervisionController, String fileName) {
@@ -39,6 +48,13 @@ public class ProcessClient extends JFrame {
 	}
 
 	private void initComponent() {
+
+		menuBar = new JMenuBar();
+		menuFile = new JMenu("File");
+		menuReturn = new JMenuItem("Return to show client process");
+		
+		menuFile.add(menuReturn);
+		menuBar.add(menuFile);
 
 		tabPane = new JTabbePanelData();
 		tableClient = new ClientTable(supervisionController);
@@ -68,14 +84,23 @@ public class ProcessClient extends JFrame {
 		tabPane.addMyTab("CPU", cpuChartPanel);
 		tabPane.setIconAt(1, (new ImageIcon("icons\\line-chart.png")));
 
-		// tabPane.addMyTab("CPU", cpuChartPanel);
-		// tabPane.setIconAt(1, (new ImageIcon("icons\\line-chart.png")));
-
-		// tabPane.addMyTab("Informations System", clientPCInformationPanel);
-		// tabPane.setIconAt(3, (new ImageIcon("icons\\computer.png")));
+		tabPane.addMyTab("Informations System", clientPCInformationPanel);
+		tabPane.setIconAt(2, (new ImageIcon("icons\\computer.png")));
 		// tabPane.addMyTab("JVM", panelJVMProcess);
 		// tabPane.setIconAt(4, (new ImageIcon("icons\\java.png")));
+		
+		menuReturn.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new ShowClientPost(supervisionController);
+				ProcessClient.this.dispose();
+			}
+		});
 
+		new Computer(supervisionController);
+
+		this.setJMenuBar(menuBar);
 		this.add(tabPane);
 		this.setSize(600, 600);
 		this.setLocationRelativeTo(null);

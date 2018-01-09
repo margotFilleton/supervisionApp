@@ -46,6 +46,8 @@ public class CPUChartPanel extends ChartPanel {
 
 		plot.setRangeGridlinesVisible(true);
 		plot.setRangeGridlinePaint(Color.BLACK);
+		
+		plot.getRangeAxis().setRange(0, 100);
 
 		plot.setDomainGridlinesVisible(true);
 		plot.setDomainGridlinePaint(Color.BLACK);
