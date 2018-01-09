@@ -3,7 +3,6 @@ package supervisionApp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import supervisionApp.ihm.controller.SupervisionController;
 import supervisionApp.ihm.model.CPUInformation;

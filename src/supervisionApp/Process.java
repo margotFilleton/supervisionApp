@@ -1,59 +1,72 @@
 package supervisionApp;
 
 public class Process {
-	
+
 	private String name;
 	private float CPU;
 	private float memory;
 	private float disk;
 	private float network;
 	private boolean isStart;
-	private float size; 
-	
+	private float size;
+
 	/**
 	 * @return the name
 	 */
 	public String getName() {
 		return name;
 	}
+
 	/**
 	 * @return the cPU
 	 */
 	public float getCPU() {
 		return CPU;
 	}
+
 	/**
 	 * @return the memory
 	 */
 	public float getMemory() {
 		return memory;
 	}
+
 	/**
 	 * @return the disk
 	 */
 	public float getDisk() {
 		return disk;
 	}
+
 	/**
 	 * @return the network
 	 */
 	public float getNetwork() {
 		return network;
 	}
-	
+
 	/**
 	 * @return the isStart
 	 */
 	public boolean isStart() {
 		return isStart;
 	}
+
 	/**
-	 * @param isStart the isStart to set
+	 * @return the size
+	 */
+	public float getSize() {
+		return size;
+	}
+
+	/**
+	 * @param isStart
+	 *            the isStart to set
 	 */
 	public void setStart(boolean isStart) {
 		this.isStart = isStart;
 	}
-	
+
 	/**
 	 * @param name
 	 * @param CPU
@@ -70,23 +83,22 @@ public class Process {
 		this.network = network;
 		this.isStart = isStart;
 	}
-	
+
 	public Process(String name, float size, boolean isStart) {
 		this.name = name;
 		this.size = size;
 		this.isStart = isStart;
 	}
 
-	
 	public void killProcess() {
-		//TODO
-		
+		// TODO
+
 		isStart = false;
 	}
-	
+
 	public void restartProcess() {
-		//TODO
-		
+		// TODO
+
 		isStart = true;
 	}
 }
