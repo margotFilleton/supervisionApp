@@ -6,7 +6,7 @@ public class Process {
 	private float CPU;
 	private float memory;
 	private float disk;
-	private float network;
+	private float PID;
 	private boolean isStart;
 	private float size;
 
@@ -42,7 +42,7 @@ public class Process {
 	 * @return the network
 	 */
 	public float getNetwork() {
-		return network;
+		return PID;
 	}
 
 	/**
@@ -72,15 +72,15 @@ public class Process {
 	 * @param CPU
 	 * @param memory
 	 * @param disk
-	 * @param network
+	 * @param PID
 	 * @param isStart
 	 */
-	public Process(String name, float CPU, float memory, float disk, float network, boolean isStart) {
+	public Process(String name, float CPU, float memory, float disk, float PID, boolean isStart) {
 		this.name = name;
 		this.CPU = CPU;
 		this.memory = memory;
 		this.disk = disk;
-		this.network = network;
+		this.PID = PID;
 		this.isStart = isStart;
 	}
 

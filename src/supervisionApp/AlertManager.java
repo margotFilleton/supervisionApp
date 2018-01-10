@@ -19,13 +19,14 @@ public class AlertManager {
 	private String msgMemoryFull  = "Alerte : memoire pleine";
 	private User user;
 	private boolean memoruFullAlertSend;
-	
+	private List<Process> lastListProcess;
 	/**
 	 * @param user
 	 */
 	public AlertManager(User user) {
 		this.user = user;
 		memoruFullAlertSend = false;
+		lastListProcess = null;
 	}
 	
 	public void SendAlert(String msg) throws MailjetException, MailjetSocketTimeoutException {
@@ -63,21 +64,25 @@ public class AlertManager {
 		else {
 			memoruFullAlertSend = true;
 		}
-		List<Process> localList = computer.getProcessList();
-		/*
-		for (int i = 0; i < localList.size(); i++) {
-			if(localList.get(i).isStart() == false) {
-				try {
-					this.SendAlert(msgProcessStop + localList.get(i).getName());
-				} catch (MailjetException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (MailjetSocketTimeoutException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+		List<Process> tempList = computer.getProcessList();
+		if( lastListProcess != null ) {					
+			for (int i = 0; i < tempList.size(); i++) {
+				for (int j = 0; j < lastListProcess.size(); j++) {
+					if(tempList.get(i) == lastListProcess.get(i)) {
+						try {
+							this.SendAlert(msgProcessStop + tempList.get(i).getName());
+						} catch (MailjetException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (MailjetSocketTimeoutException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
 				}
-			}
-		}*/
+			}			
+		}
+		lastListProcess = tempList;
 		
 	}
 
