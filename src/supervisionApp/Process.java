@@ -39,9 +39,9 @@ public class Process {
 	}
 
 	/**
-	 * @return the network
+	 * @return the PID
 	 */
-	public float getNetwork() {
+	public float getPID() {
 		return PID;
 	}
 
