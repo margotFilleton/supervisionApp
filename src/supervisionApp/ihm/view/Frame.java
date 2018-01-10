@@ -58,12 +58,13 @@ public class Frame extends JFrame {
 		JMenu menuRefreshPeriod = new JMenu("Refreshing period");
 		JMenu menuPreference = new JMenu("Preference");
 
+		JMenuItem menuItemReturnChooseMode = new JMenuItem("Return choose mode");
 		JMenuItem menuItemCPUPeriod = new JMenuItem("Change CPU refreshing period");
 		JMenuItem menuItemStopRefreshingTablePeriod = new JMenuItem("Start refreshing table period");
 		JMenuItem menuItemStartRefreshingTablePeriod = new JMenuItem("Stop refreshing table period");
 		JMenuItem menuItemChangeRefreshingPeriod = new JMenuItem("Change process memory refreshing period");
 		JMenuItem menuItemExit = new JMenuItem("Exit");
-		
+
 		JMenuItem menuItemShowProcessKilled = new JMenuItem("Show process killed");
 
 		JCheckBoxMenuItem menuChangeSizeKo = new JCheckBoxMenuItem("Change size on Ko");
@@ -81,7 +82,8 @@ public class Frame extends JFrame {
 		menuRefreshPeriod.add(menuItemStartRefreshingTablePeriod);
 		menuRefreshPeriod.add(menuItemStopRefreshingTablePeriod);
 
-		// menuFile.addSeparator();
+		menuFile.add(menuItemReturnChooseMode);
+		menuFile.addSeparator();
 		menuFile.add(menuItemExit);
 
 		menuPreference.add(menuItemShowProcessKilled);
@@ -102,7 +104,7 @@ public class Frame extends JFrame {
 			}
 		});
 		MyTableModel tableModel = new MyTableModel();
-		
+
 		supervisionController.setMapNomTaillePID(tableModel.getMapNomTaillePID());
 		supervisionController.setMapNomTaille(tableModel.getMapNomTaille());
 		supervisionController.setProcessList(tableModel.getProcessList());
@@ -112,9 +114,12 @@ public class Frame extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String refreshingPeriod = JOptionPane.showInputDialog(Frame.this, "Choose your refreshing period (ms)");
-				Frame.this.refreshingPeriod = Integer.valueOf(refreshingPeriod);
-				tableModel.setRefreshingPeriod(Frame.this.refreshingPeriod);
-
+				try {
+					Frame.this.refreshingPeriod = Integer.valueOf(refreshingPeriod.trim());
+					tableModel.setRefreshingPeriod(Frame.this.refreshingPeriod);
+				} catch (Exception e2) {
+					// TODO: handle exception
+				}
 			}
 		});
 
@@ -124,9 +129,11 @@ public class Frame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				String refreshingCPUPeriod = JOptionPane.showInputDialog(Frame.this,
 						"Choose your CPU refreshing period (ms)");
-				Frame.this.refreshingCPUPeriod = Integer.valueOf(refreshingCPUPeriod);
-				if (chartModel != null) {
-					chartModel.setRefreshingCPUPeriod(Frame.this.refreshingCPUPeriod);
+				if (refreshingCPUPeriod != null && !refreshingCPUPeriod.equals(" ")) {
+					Frame.this.refreshingCPUPeriod = Integer.valueOf(refreshingCPUPeriod);
+					if (chartModel != null) {
+						chartModel.setRefreshingCPUPeriod(Frame.this.refreshingCPUPeriod);
+					}
 				}
 			}
 		});
@@ -139,12 +146,21 @@ public class Frame extends JFrame {
 				tableModel.setShowOnKo(showInKo);
 			}
 		});
-		
+
 		menuItemShowProcessKilled.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				new ProcessKilledFrame(supervisionController.getListProcessKilled());
+			}
+		});
+
+		menuItemReturnChooseMode.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new ChooseMode(null);
+				Frame.this.dispose();
 			}
 		});
 
@@ -237,8 +253,7 @@ public class Frame extends JFrame {
 		setSize(1000, 600);
 		setIconImage(new ImageIcon("icons\\icon_frame.png").getImage());
 		tableModel.startMonitoring();
-		
-		
+
 	}
 
 	public JTabbedPane getTabPane() {
@@ -250,6 +265,6 @@ public class Frame extends JFrame {
 	}
 
 	public static void main(String[] args) {
-		new Frame(new SupervisionController(new User("margot", "filleton","margot.filleton@gmail.com",true)));
+		new Frame(new SupervisionController(new User("margot", "filleton", "margot.filleton@gmail.com", true)));
 	}
 }

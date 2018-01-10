@@ -12,7 +12,7 @@ public class CPUChartModel {
 	private CPUInformation cpuInformation;
 	private boolean started = false;
 
-	private int refreshingCPUPeriod = 500;
+	private int refreshingCPUPeriod = 1500;
 
 	public CPUChartModel(final IChartModelListener listener) {
 		this.listener = listener;
