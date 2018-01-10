@@ -113,7 +113,7 @@ public class ClientTableModel extends DefaultTableModel {
 			listTaille = new ArrayList<>();
 			listInformationPC = new ArrayList<>();
 		}
-		
+
 		processList.clear();
 		listNom.clear();
 		listPID.clear();
@@ -143,12 +143,6 @@ public class ClientTableModel extends DefaultTableModel {
 						listPID.add(PID);
 						listServices.add(service);
 						listTaille.add(taille);
-
-						// System.out.println("appliRun = " + appliRun);
-						// System.out.println("PID = " + PID);
-						//
-						// System.out.println("service = " + service);
-						// System.out.println("taille = " + taille);
 					}
 
 					if (isCheckPCInfo) {
@@ -206,7 +200,7 @@ public class ClientTableModel extends DefaultTableModel {
 				public void run() {
 					while (started) {
 						try {
-							Thread.sleep(5000);
+							Thread.sleep(2000);
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
