@@ -81,7 +81,7 @@ public class UserFrame {
 				boolean connectUser = newConnection.ConnectUser(textFieldUser.getText(), passwordField.getPassword());
 				if(connectUser) {
 					frame.setVisible(false);
-					SupervisionController supervisionController = new SupervisionController();
+					SupervisionController supervisionController = new SupervisionController(newConnection.getUser());
 					supervisionController.setUser(newConnection.getUser());
 					new ChooseMode(supervisionController);
 				} else {

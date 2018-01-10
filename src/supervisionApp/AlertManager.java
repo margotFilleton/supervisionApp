@@ -18,12 +18,14 @@ public class AlertManager {
 	private String msgProcessStop = "Alerte : un processus ne tourne plus, processus : ";
 	private String msgMemoryFull  = "Alerte : memoire pleine";
 	private User user;
+	private boolean memoruFullAlertSend;
 	
 	/**
 	 * @param user
 	 */
 	public AlertManager(User user) {
 		this.user = user;
+		memoruFullAlertSend = false;
 	}
 	
 	public void SendAlert(String msg) throws MailjetException, MailjetSocketTimeoutException {
@@ -46,9 +48,10 @@ public class AlertManager {
 	
 	
 	public void CheckIfAlert(Computer computer) {
-		if(computer.getPercentageCPU() >= 80.0) {
+		if(computer.getPercentageCPU() >= 80.0 && memoruFullAlertSend == false ) {
 			try {
 				this.SendAlert(msgMemoryFull);
+				memoruFullAlertSend = true;
 			} catch (MailjetException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -57,8 +60,11 @@ public class AlertManager {
 				e.printStackTrace();
 			}
 		}
+		else {
+			memoruFullAlertSend = true;
+		}
 		List<Process> localList = computer.getProcessList();
-		
+		/*
 		for (int i = 0; i < localList.size(); i++) {
 			if(localList.get(i).isStart() == false) {
 				try {
@@ -71,7 +77,7 @@ public class AlertManager {
 					e.printStackTrace();
 				}
 			}
-		}
+		}*/
 		
 	}
 

@@ -24,6 +24,7 @@ import org.jfree.chart.plot.XYPlot;
 import org.jfree.data.xy.XYDataset;
 
 import supervisionApp.Computer;
+import supervisionApp.User;
 import supervisionApp.ihm.controller.SupervisionController;
 import supervisionApp.ihm.model.CPUChartModel;
 import supervisionApp.ihm.model.IChartModelListener;
@@ -41,6 +42,7 @@ public class Frame extends JFrame {
 
 	private boolean enableMenuItem = false;
 
+	private Computer computer;
 	private boolean showInKo = false;
 
 	public Frame(SupervisionController supervisionController) {
@@ -111,6 +113,7 @@ public class Frame extends JFrame {
 				String refreshingPeriod = JOptionPane.showInputDialog(Frame.this, "Choose your refreshing period (ms)");
 				Frame.this.refreshingPeriod = Integer.valueOf(refreshingPeriod);
 				tableModel.setRefreshingPeriod(Frame.this.refreshingPeriod);
+
 			}
 		});
 
@@ -225,13 +228,16 @@ public class Frame extends JFrame {
 
 		setLayout(new BorderLayout());
 		add(tabPane, BorderLayout.CENTER);
-		new Computer(supervisionController);
+		computer = new Computer(supervisionController);
+		System.out.println("CPU " + computer.getPercentageCPU());
 
 		// setContentPane(tabPane);
 		setVisible(true);
 		setSize(1000, 600);
 		setIconImage(new ImageIcon("icons\\icon_frame.png").getImage());
 		tableModel.startMonitoring();
+		
+		
 	}
 
 	public JTabbedPane getTabPane() {
@@ -243,6 +249,6 @@ public class Frame extends JFrame {
 	}
 
 	public static void main(String[] args) {
-		new Frame(null);
+		new Frame(new SupervisionController(new User("margot", "filleton","margot.filleton@gmail.com",true)));
 	}
 }

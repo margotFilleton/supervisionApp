@@ -3,19 +3,20 @@ package supervisionApp.ihm.controller;
 import java.util.List;
 import java.util.Map;
 
+import supervisionApp.AlertManager;
 import supervisionApp.User;
 
 public class SupervisionController {
 
 	private User user;
-	
 	private List<String> processKilled = null;
 	private List<String> processList = null;
 	private Map<String, String> mapNomTaille = null;
 
-	public SupervisionController() {
-
+	public SupervisionController(User user) {
+		this.user = user;
 	}
+	
 
 	public User getUser() {
 		return user;

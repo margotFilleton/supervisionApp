@@ -98,7 +98,7 @@ public class ConnectionManager {
 	/**
 	 * Connect user with Id and password
 	 * @param id
-	 * @param cs
+	 * @param password
 	 * @return true if success
 	 */
 	public boolean ConnectUser(String id, char[] password) {
