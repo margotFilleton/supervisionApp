@@ -13,6 +13,8 @@ import java.util.StringTokenizer;
 
 import javax.swing.table.DefaultTableModel;
 
+import supervisionApp.ihm.controller.SupervisionController;
+
 public class MyTableModel extends DefaultTableModel {
 
 	private static final long serialVersionUID = -5831729325464935266L;
@@ -34,7 +36,10 @@ public class MyTableModel extends DefaultTableModel {
 
 	private int refreshingPeriod = 500;
 
-	public MyTableModel() {
+	private SupervisionController supervisionController = null;
+
+	public MyTableModel(SupervisionController supervisionController) {
+		this.supervisionController = supervisionController;
 		readData();
 	}
 
@@ -150,6 +155,9 @@ public class MyTableModel extends DefaultTableModel {
 			Collections.sort(listServices);
 			Collections.sort(listTaille);
 			this.fireTableDataChanged();
+
+			setMapNomTaille(mapNomTaille);
+			supervisionController.setMapNomTaillePID(getMapNomTaillePID());
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

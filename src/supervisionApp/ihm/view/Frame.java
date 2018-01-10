@@ -103,7 +103,7 @@ public class Frame extends JFrame {
 				System.exit(0);
 			}
 		});
-		MyTableModel tableModel = new MyTableModel();
+		MyTableModel tableModel = new MyTableModel(supervisionController);
 
 		supervisionController.setMapNomTaillePID(tableModel.getMapNomTaillePID());
 		supervisionController.setMapNomTaille(tableModel.getMapNomTaille());
