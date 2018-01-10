@@ -54,7 +54,9 @@ public class Computer {
 			cpuInformation = new CPUInformation();
 		}
 		String myCPU = cpuInformation.getMyCPU();
+		myCPU = myCPU.replaceAll(",", ".");
 		double percentageCPU = Double.valueOf(myCPU);
+		
 		return percentageCPU;
 	}
 

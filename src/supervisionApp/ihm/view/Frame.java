@@ -229,7 +229,6 @@ public class Frame extends JFrame {
 		setLayout(new BorderLayout());
 		add(tabPane, BorderLayout.CENTER);
 		computer = new Computer(supervisionController);
-		System.out.println("CPU " + computer.getPercentageCPU());
 
 		// setContentPane(tabPane);
 		setVisible(true);
