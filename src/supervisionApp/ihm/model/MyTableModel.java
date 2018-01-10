@@ -20,7 +20,7 @@ public class MyTableModel extends DefaultTableModel {
 	private static final String[] columnName = new String[] { "Nom", "PID", "Services", "Taille" };
 	private boolean started = false;
 	private static List<String> processList = null;
-	
+
 	private boolean isShowOnKo = false;
 
 	private ArrayList<String> listNom = null;
@@ -29,6 +29,8 @@ public class MyTableModel extends DefaultTableModel {
 	private ArrayList<String> listTaille = null;
 
 	private Map<String, String> mapNomTaille = new HashMap<String, String>();
+	private Map<String, Map<String, String>> mapNomTaillePID = new HashMap<String, Map<String, String>>();
+	private Map<String, String> mapTaillePID = new HashMap<String, String>();
 
 	private int refreshingPeriod = 500;
 
@@ -102,6 +104,7 @@ public class MyTableModel extends DefaultTableModel {
 		listServices.clear();
 		listTaille.clear();
 		mapNomTaille.clear();
+		mapTaillePID.clear();
 
 		try {
 			Process p = Runtime.getRuntime().exec(System.getenv("windir") + "\\system32\\" + "tasklist.exe");
@@ -131,6 +134,10 @@ public class MyTableModel extends DefaultTableModel {
 						Float koValue = Float.valueOf(extraireDonnees[4].replace("\u00ff", ""));
 						Float moValue = (koValue / (1024));
 
+						mapTaillePID.put(String.valueOf(moValue), extraireDonnees[1]);
+						mapNomTaillePID.put(extraireDonnees[0], mapTaillePID);
+
+						// For chart value
 						if (moValue > 50) {
 							mapNomTaille.put(extraireDonnees[0], String.valueOf(moValue));
 						}
@@ -219,12 +226,12 @@ public class MyTableModel extends DefaultTableModel {
 		this.listNom = listNom;
 	}
 
-	public ArrayList<String> getListPID() {
-		return listPID;
+	public Map<String, String> getMapTaillePID() {
+		return mapTaillePID;
 	}
 
-	public void setListPID(ArrayList<String> listPID) {
-		this.listPID = listPID;
+	public void setMapTaillePID(Map<String, String> mapTaillePID) {
+		this.mapTaillePID = mapTaillePID;
 	}
 
 	public ArrayList<String> getListServices() {
@@ -247,10 +254,17 @@ public class MyTableModel extends DefaultTableModel {
 		return mapNomTaille;
 	}
 
+	public void setMapNomTaillePID(Map<String, Map<String, String>> mapNomTaillePID) {
+		this.mapNomTaillePID = mapNomTaillePID;
+	}
+
+	public Map<String, Map<String, String>> getMapNomTaillePID() {
+		return mapNomTaillePID;
+	}
+
 	public void setMapNomTaille(Map<String, String> mapNomTaille) {
 		this.mapNomTaille = mapNomTaille;
 	}
-	
 
 	public List<String> getProcessList() {
 		return processList;

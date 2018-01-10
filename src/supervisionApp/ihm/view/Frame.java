@@ -103,6 +103,7 @@ public class Frame extends JFrame {
 		});
 		MyTableModel tableModel = new MyTableModel();
 		
+		supervisionController.setMapNomTaillePID(tableModel.getMapNomTaillePID());
 		supervisionController.setMapNomTaille(tableModel.getMapNomTaille());
 		supervisionController.setProcessList(tableModel.getProcessList());
 
@@ -229,6 +230,7 @@ public class Frame extends JFrame {
 		setLayout(new BorderLayout());
 		add(tabPane, BorderLayout.CENTER);
 		computer = new Computer(supervisionController);
+		computer.getPercentageCPU();
 
 		// setContentPane(tabPane);
 		setVisible(true);

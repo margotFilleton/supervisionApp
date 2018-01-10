@@ -6,7 +6,7 @@ public class Process {
 	private float CPU;
 	private float memory;
 	private float disk;
-	private float PID;
+	private String PID;
 	private boolean isStart;
 	private float size;
 
@@ -41,7 +41,7 @@ public class Process {
 	/**
 	 * @return the PID
 	 */
-	public float getPID() {
+	public String getPID() {
 		return PID;
 	}
 
@@ -75,7 +75,7 @@ public class Process {
 	 * @param PID
 	 * @param isStart
 	 */
-	public Process(String name, float CPU, float memory, float disk, float PID, boolean isStart) {
+	public Process(String name, float CPU, float memory, float disk, String PID, boolean isStart) {
 		this.name = name;
 		this.CPU = CPU;
 		this.memory = memory;
@@ -84,9 +84,9 @@ public class Process {
 		this.isStart = isStart;
 	}
 
-	public Process(String name, float size, boolean isStart) {
+	public Process(String name, String processSize, String PID, boolean isStart) {
 		this.name = name;
-		this.size = size;
+		//this.size = processSize;
 		this.isStart = isStart;
 	}
 
