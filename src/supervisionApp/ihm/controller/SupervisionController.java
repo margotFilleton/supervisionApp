@@ -3,6 +3,8 @@ package supervisionApp.ihm.controller;
 import java.util.List;
 import java.util.Map;
 
+import supervisionApp.AlertManager;
+import supervisionApp.Computer;
 import supervisionApp.User;
 
 public class SupervisionController {
@@ -13,9 +15,26 @@ public class SupervisionController {
 
 	private Map<String, String> mapNomTaille = null;
 	private Map<String, Map<String, String>> mapNomTaillePID = null;
+	
+	private AlertManager alert;
 
 	public SupervisionController(User user) {
 		this.user = user;
+		alert = new AlertManager(user);
+	}
+	
+	/**
+	 * @return the alert
+	 */
+	public AlertManager getAlert() {
+		return alert;
+	}
+
+	/**
+	 * @param alert the alert to set
+	 */
+	public void setAlert(AlertManager alert) {
+		this.alert = alert;
 	}
 
 	public User getUser() {
@@ -24,6 +43,7 @@ public class SupervisionController {
 
 	public void setUser(User user) {
 		this.user = user;
+		alert = new AlertManager(user);
 	}
 
 	public List<String> getListProcessKilled() {

@@ -17,12 +17,12 @@ public class Computer {
 	private long memoryUsed;
 	private long memoryMax;
 	private double percentageCPU = 0;
+	private AlertManager alert;
 
 	public Computer(SupervisionController controller) {
-
+		alert = controller.getAlert();
 		processList = new ArrayList<>();
 		processKilledList = controller.getListProcessKilled();
-
 		// Map<String, String> mapNomTaille = controller.getMapNomTaille();
 		// Map<String, String> mapNomPID = controller.getMapNomPID();
 
@@ -76,6 +76,39 @@ public class Computer {
 		memoryMax = Runtime.getRuntime().totalMemory();
 
 		memoryUsed = memoryMax - freeMemory;
+		
+		Thread thread = new Thread() {
+			public void run() {
+				while (true) {
+					try {
+						Thread.sleep(2000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					if (cpuInformation == null) {
+						cpuInformation = new CPUInformation();
+					}
+					String myCPU = cpuInformation.getMyCPU();
+					myCPU = myCPU.replaceAll(",", ".");
+					setPercentageCPU(Double.valueOf(myCPU));
+				}
+			};
+		};
+		thread.start();
+	}
+
+	/**
+	 * @return the alert
+	 */
+	public AlertManager getAlert() {
+		return alert;
+	}
+
+	/**
+	 * @param alert the alert to set
+	 */
+	public void setAlert(AlertManager alert) {
+		this.alert = alert;
 	}
 
 	/**
@@ -89,26 +122,15 @@ public class Computer {
 	 * @return the percentageCPU
 	 */
 	public double getPercentageCPU() {
-		Thread thread = new Thread() {
-			public void run() {
-				while (true) {
-					try {
-						Thread.sleep(5000);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-					if (cpuInformation == null) {
-						cpuInformation = new CPUInformation();
-					}
-					String myCPU = cpuInformation.getMyCPU();
-					myCPU = myCPU.replaceAll(",", ".");
-					percentageCPU = Double.valueOf(myCPU);
-				}
-			};
-		};
-		thread.start();
-
 		return percentageCPU;
+	}
+	
+	/**
+	 * @param percentageCPU the percentageCPU to set
+	 */
+	public void setPercentageCPU(double percentageCPU) {
+		this.percentageCPU = percentageCPU;
+		alert.CheckIfAlert(this);
 	}
 
 	/**
