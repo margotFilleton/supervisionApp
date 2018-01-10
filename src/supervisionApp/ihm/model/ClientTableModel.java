@@ -111,6 +111,7 @@ public class ClientTableModel extends DefaultTableModel {
 			listPID = new ArrayList<>();
 			listServices = new ArrayList<>();
 			listTaille = new ArrayList<>();
+			listInformationPC = new ArrayList<>();
 		}
 		
 		processList.clear();
@@ -151,7 +152,6 @@ public class ClientTableModel extends DefaultTableModel {
 					}
 
 					if (isCheckPCInfo) {
-						listInformationPC = new ArrayList<>();
 						if (line.contains("nbProcess=")) {
 							String[] splitey = line.split("=");
 							nbProcess = splitey[1];
@@ -185,6 +185,7 @@ public class ClientTableModel extends DefaultTableModel {
 							MACAdress = splitey[1];
 							listInformationPC.add(MACAdress);
 						}
+						System.out.println("check info" + nbProcess);
 						isCheckPCInfo = false;
 					}
 				}

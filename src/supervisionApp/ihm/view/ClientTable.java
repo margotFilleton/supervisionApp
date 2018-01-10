@@ -17,6 +17,7 @@ import javax.swing.SwingUtilities;
 
 import supervisionApp.ihm.controller.SupervisionController;
 import supervisionApp.ihm.model.ClientTableModel;
+import supervisionApp.ihm.model.FileServer;
 
 public class ClientTable extends JPanel {
 
@@ -89,11 +90,12 @@ public class ClientTable extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				try {
-					Runtime.getRuntime().exec("TASKKILL /F /IM " + processName);
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
+			//	try {
+					
+					//Runtime.getRuntime().exec("TASKKILL /F /IM " + processName);
+//				} catch (IOException e1) {
+//					e1.printStackTrace();
+//				}
 			}
 		});
 	}

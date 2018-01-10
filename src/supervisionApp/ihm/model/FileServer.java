@@ -14,7 +14,7 @@ public class FileServer {
 	private boolean isCreate = true;
 	private InputStream in = null;
 	private DataInputStream clientData = null;
-	private OutputStream output = null;
+	private static OutputStream output = null;
 
 	private boolean isOk = true;
 
@@ -56,7 +56,7 @@ public class FileServer {
 				e.printStackTrace();
 			}
 		}
-		closeServer();
+		 closeServer();
 	}
 
 	private void closeServer() {
