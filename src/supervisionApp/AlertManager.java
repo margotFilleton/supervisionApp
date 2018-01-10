@@ -49,6 +49,7 @@ public class AlertManager {
 	
 	
 	public void CheckIfAlert(Computer computer) {
+		// Check if memory stop
 		if(computer.getPercentageCPU() >= 80.0 && memoruFullAlertSend == false ) {
 			try {
 				this.SendAlert(msgMemoryFull);
@@ -64,22 +65,30 @@ public class AlertManager {
 		else {
 			memoruFullAlertSend = true;
 		}
+		
+		// Check if Process stop
 		List<Process> tempList = computer.getProcessList();
-		if( lastListProcess != null ) {					
-			for (int i = 0; i < tempList.size(); i++) {
-				for (int j = 0; j < lastListProcess.size(); j++) {
-					if(tempList.get(i) == lastListProcess.get(i)) {
-						try {
-							this.SendAlert(msgProcessStop + tempList.get(i).getName());
-						} catch (MailjetException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						} catch (MailjetSocketTimeoutException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
+		if( lastListProcess != null ) {
+			boolean processStillRunning = false;
+			for (int i = 0; i < lastListProcess.size(); i++) {
+				for (int j = 0; j < tempList.size(); j++) {
+					if(lastListProcess.get(i).getPID() == tempList.get(j).getPID()) {
+						processStillRunning = true;						
 					}
 				}
+				if(processStillRunning == false)
+				{
+					try {
+						this.SendAlert(msgProcessStop + lastListProcess.get(i).getName() + ", PID : " + lastListProcess.get(i).getPID());
+					} catch (MailjetException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (MailjetSocketTimeoutException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				processStillRunning = false;
 			}			
 		}
 		lastListProcess = tempList;
