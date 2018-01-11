@@ -1,10 +1,12 @@
 package supervisionApp.ihm.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.locks.Lock;
 
 import supervisionApp.AlertManager;
-import supervisionApp.Computer;
+import supervisionApp.Process;
 import supervisionApp.User;
 
 public class SupervisionController {
@@ -17,6 +19,8 @@ public class SupervisionController {
 	private Map<String, Map<String, String>> mapNomTaillePID = null;
 	
 	private AlertManager alert;
+	
+	private List<Process> processObjectList = null;
 
 	public SupervisionController(User user) {
 		this.user = user;
@@ -77,5 +81,12 @@ public class SupervisionController {
 	public Map<String, Map<String, String>> getMapNomTaillePID() {
 		return mapNomTaillePID;
 	}
-
+	
+	public void setProcessObjectList(ArrayList<Process> processObjectList) {
+		this.processObjectList = processObjectList;
+	}
+	
+	public List<Process> getProcessObjectList(){
+		return processObjectList;
+	}
 }

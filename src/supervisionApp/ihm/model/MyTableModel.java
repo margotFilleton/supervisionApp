@@ -10,6 +10,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.concurrent.locks.Lock;
 
 import javax.swing.table.DefaultTableModel;
 
@@ -29,6 +31,8 @@ public class MyTableModel extends DefaultTableModel {
 	private ArrayList<String> listPID = null;
 	private ArrayList<String> listServices = null;
 	private ArrayList<String> listTaille = null;
+
+	private ArrayList<supervisionApp.Process> processObjectList = null;
 
 	private Map<String, String> mapNomTaille = new HashMap<String, String>();
 	private Map<String, Map<String, String>> mapNomTaillePID = new HashMap<String, Map<String, String>>();
@@ -102,6 +106,7 @@ public class MyTableModel extends DefaultTableModel {
 			listPID = new ArrayList<>();
 			listServices = new ArrayList<>();
 			listTaille = new ArrayList<>();
+			processObjectList = new ArrayList<>();
 		}
 		processList.clear();
 		listNom.clear();
@@ -110,6 +115,8 @@ public class MyTableModel extends DefaultTableModel {
 		listTaille.clear();
 		mapNomTaille.clear();
 		mapTaillePID.clear();
+		mapNomTaillePID.clear();
+		processObjectList.clear();
 
 		try {
 			Process p = Runtime.getRuntime().exec(System.getenv("windir") + "\\system32\\" + "tasklist.exe");
@@ -142,6 +149,11 @@ public class MyTableModel extends DefaultTableModel {
 						mapTaillePID.put(String.valueOf(moValue), extraireDonnees[1]);
 						mapNomTaillePID.put(extraireDonnees[0], mapTaillePID);
 
+						float disk = 0;
+						float CPU = 0;
+						processObjectList.add(new supervisionApp.Process(extraireDonnees[0], CPU, moValue, disk,
+								extraireDonnees[1], true));
+
 						// For chart value
 						if (moValue > 50) {
 							mapNomTaille.put(extraireDonnees[0], String.valueOf(moValue));
@@ -156,11 +168,18 @@ public class MyTableModel extends DefaultTableModel {
 			Collections.sort(listTaille);
 			this.fireTableDataChanged();
 
-			setMapNomTaille(mapNomTaille);
-			supervisionController.setMapNomTaillePID(getMapNomTaillePID());
+			// supervisionController.setProcessList(processList);
+			if (processObjectList.size() != 0) {
+				supervisionController.setProcessObjectList(processObjectList);
+			}
+			supervisionController.setMapNomTaillePID(mapNomTaillePID);
+
+			// AtomicReference<Object> cache = new AtomicReference<Object>();
+			// cache.set(mapNomTaillePID);
+
+			// supervisionController.setAtomicReference(cache);
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

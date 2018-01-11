@@ -23,34 +23,49 @@ public class Computer {
 		alert = controller.getAlert();
 		processList = new ArrayList<>();
 		processKilledList = controller.getListProcessKilled();
-		// Map<String, String> mapNomTaille = controller.getMapNomTaille();
-		// Map<String, String> mapNomPID = controller.getMapNomPID();
 
-		Map<String, Map<String, String>> mapNomTaillePID = controller.getMapNomTaillePID();
-
-		if (mapNomTaillePID != null) {
-			for (Map.Entry<String, Map<String, String>> entry : mapNomTaillePID.entrySet()) {
-				String processName = entry.getKey();
-				Map<String, String> mapTaillePID = entry.getValue();
-
-				for (Entry<String, String> entryMap : mapTaillePID.entrySet()) {
-					String processSize = entryMap.getKey();
-					String processPID = entryMap.getValue();
-					System.out.println("processName = " + processName + " processSize = " + processSize
-							+ "mapProcessPID =" + processPID);
-					// processList.add(new Process(processName, processSize, mapProcessPID, true));
-
-					Float processSizeFloat = Float.valueOf(processSize);
-					float cpu = 0;
-					float disk = 0;
-
-					processList.add(new Process(processName, cpu, processSizeFloat, disk, processPID, true));
-
+		Thread threadtest = new Thread() {
+			public void run() {
+				while (true) {
+					try {
+						Thread.sleep(2000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					List<Process> processObjectList = controller.getProcessObjectList();
+					if (processObjectList.size() > 0) {
+						setProcessList(processObjectList);
+					}
 				}
-			}
-		} else {
-			System.out.println("Map = mapNomTaillePID == null");
-		}
+			};
+		};
+		threadtest.start();
+
+		// Map<String, Map<String, String>> mapNomTaillePID =
+		// controller.getMapNomTaillePID();
+		//
+		// if (mapNomTaillePID != null) {
+		// for (Map.Entry<String, Map<String, String>> entry :
+		// mapNomTaillePID.entrySet()) {
+		// String processName = entry.getKey();
+		// Map<String, String> mapTaillePID = entry.getValue();
+		//
+		// for (Entry<String, String> entryMap : mapTaillePID.entrySet()) {
+		// String processSize = entryMap.getKey();
+		// String processPID = entryMap.getValue();
+		//
+		// Float processSizeFloat = Float.valueOf(processSize);
+		// float cpu = 0;
+		// float disk = 0;
+		//
+		// processList.add(new Process(processName, cpu, processSizeFloat, disk,
+		// processPID, true));
+		// }
+		// }
+		// } else {
+		// System.out.println("Map = mapNomTaillePID == null");
+		// }
+
 		// if (mapNomTaille != null) {
 		// for (Map.Entry<String, String> entry : mapNomTaille.entrySet()) {
 		// String key = entry.getKey();
@@ -76,7 +91,7 @@ public class Computer {
 		memoryMax = Runtime.getRuntime().totalMemory();
 
 		memoryUsed = memoryMax - freeMemory;
-		
+
 		Thread thread = new Thread() {
 			public void run() {
 				while (true) {
@@ -105,7 +120,8 @@ public class Computer {
 	}
 
 	/**
-	 * @param alert the alert to set
+	 * @param alert
+	 *            the alert to set
 	 */
 	public void setAlert(AlertManager alert) {
 		this.alert = alert;
@@ -119,14 +135,22 @@ public class Computer {
 	}
 
 	/**
+	 * @return the processList
+	 */
+	public void setProcessList(List<Process> processList) {
+		this.processList = processList;
+	}
+
+	/**
 	 * @return the percentageCPU
 	 */
 	public double getPercentageCPU() {
 		return percentageCPU;
 	}
-	
+
 	/**
-	 * @param percentageCPU the percentageCPU to set
+	 * @param percentageCPU
+	 *            the percentageCPU to set
 	 */
 	public void setPercentageCPU(double percentageCPU) {
 		this.percentageCPU = percentageCPU;
