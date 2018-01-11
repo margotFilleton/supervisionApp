@@ -7,6 +7,7 @@ import com.mailjet.client.MailjetRequest;
 import com.mailjet.client.MailjetResponse;
 import com.mailjet.client.resource.Email;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -20,6 +21,7 @@ public class AlertManager {
 	private boolean memoruFullAlertSend;
 	private List<Process> lastListProcess;
 	boolean test = true;
+	private List<Process> tempList;
 
 	/**
 	 * @param user
@@ -43,56 +45,70 @@ public class AlertManager {
 		System.out.println(response.getData());
 	}
 
-	public void CheckIfAlert(Computer computer) {
-		/*
-		 * System.out.println("checkif alert");
-		 * System.out.println(computer.getPercentageCPU()); // Check if memory stop
-		 * if(computer.getPercentageCPU() >= 40.0 && memoruFullAlertSend == false ) {
-		 * try { this.SendAlert(msgMemoryFull); memoruFullAlertSend = true;
-		 * System.out.println("send"); } catch (MailjetException e) { // TODO
-		 * Auto-generated catch block e.printStackTrace(); } catch
-		 * (MailjetSocketTimeoutException e) { // TODO Auto-generated catch block
-		 * e.printStackTrace(); } } else { memoruFullAlertSend = false; }
-		 */
+	public void CheckIfAlertCPU(Computer computer) {
 
-		// Check if Process stop
+		System.out.println("checkif alert");
+		System.out.println(computer.getPercentageCPU()); // Check if memory stop
+		if(computer.getPercentageCPU() >= 40.0 && memoruFullAlertSend == false ) {
+			try { 
+				this.SendAlert(msgMemoryFull); memoruFullAlertSend = true;
+				System.out.println("send CPU"); 
+			} catch (MailjetException e) { 
+				// TODO Auto-generated catch block 
+				e.printStackTrace(); 
+			} catch(MailjetSocketTimeoutException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace(); 
+			} 
+		} else { memoruFullAlertSend = false; }
+			
+	}
 
-		List<Process> tempList = computer.getProcessList();
-		if (tempList.size() > 0) {
-			if (test) {
-				for (int i = 0; i < tempList.size(); i++) {
-					System.out.println("tempList : " + tempList.get(i).getPID());
+	public void CheckIfProcessStop(Computer computer) {		
+		if(tempList != null) {
+			tempList.clear();
+		}	
+		tempList = computer.getProcessList();
+		
+		if( lastListProcess != null ) {		
+			boolean isInList = false;
+			for (int i = 0; i < lastListProcess.size(); i++) {	
+				isInList = false;
+				for (int j = 0; j < tempList.size(); j++) {
+
+					if(lastListProcess.get(i).getPID().equals( tempList.get(j).getPID())) {
+						isInList = true;										
+					}									
 				}
-				test = false;
-			}
-
-			if (lastListProcess != null) {
-				boolean processStillRunning = false;
-				for (int i = 0; i < lastListProcess.size(); i++) {
-
-					for (int j = 0; j < tempList.size(); j++) {
-						if (lastListProcess.get(i).getPID() == tempList.get(j).getPID()) {
-							processStillRunning = true;
-						}
-					}
-					if (processStillRunning == false) {
-						try {
-							this.SendAlert(msgProcessStop + lastListProcess.get(i).getName() + ", PID : "
-									+ lastListProcess.get(i).getPID());
-							System.out.println("send");
-						} catch (MailjetException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						} catch (MailjetSocketTimeoutException e) {
-							e.printStackTrace();
-						}
-					}
-					processStillRunning = false;
+				if (isInList == false && lastListProcess.get(i).getMemory() > 30.0) {
+					System.out.println("send Process end" + lastListProcess.get(i).getMemory());
+					try {
+						this.SendAlert(msgProcessStop + lastListProcess.get(i).getName() + ", PID : "
+								+ lastListProcess.get(i).getPID());
+						System.out.println("send");
+					} catch (MailjetException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (MailjetSocketTimeoutException e) {
+						e.printStackTrace();
+					}			
 				}
 			}
-			lastListProcess = tempList;
+			copyListByValue(tempList);
 		}
 
+		if(lastListProcess != null) {
+			lastListProcess.clear();
+		}	
+		copyListByValue(tempList);	
+		System.out.println("end");
+	}
+
+	private void copyListByValue(List<Process> destList) {
+		lastListProcess = new ArrayList<>();
+		for(int i = 0; i < destList.size(); i++ ) {
+			lastListProcess.add(destList.get(i));
+		}
 	}
 
 	public static void main(String[] args) {

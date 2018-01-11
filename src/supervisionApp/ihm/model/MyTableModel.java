@@ -32,7 +32,7 @@ public class MyTableModel extends DefaultTableModel {
 	private ArrayList<String> listServices = null;
 	private ArrayList<String> listTaille = null;
 
-	private ArrayList<supervisionApp.Process> processObjectList = null;
+	private List<supervisionApp.Process> processObjectList = null;
 
 	private Map<String, String> mapNomTaille = new HashMap<String, String>();
 	private Map<String, Map<String, String>> mapNomTaillePID = new HashMap<String, Map<String, String>>();
@@ -170,7 +170,7 @@ public class MyTableModel extends DefaultTableModel {
 
 			// supervisionController.setProcessList(processList);
 			if (processObjectList.size() != 0) {
-				supervisionController.setProcessObjectList(processObjectList);
+				supervisionController.setProcessObjectList(processObjectList);				
 			}
 			supervisionController.setMapNomTaillePID(mapNomTaillePID);
 

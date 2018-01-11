@@ -3,7 +3,6 @@ package supervisionApp.ihm.controller;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.locks.Lock;
 
 import supervisionApp.AlertManager;
 import supervisionApp.Process;
@@ -82,8 +81,12 @@ public class SupervisionController {
 		return mapNomTaillePID;
 	}
 	
-	public void setProcessObjectList(ArrayList<Process> processObjectList) {
-		this.processObjectList = processObjectList;
+	public void setProcessObjectList(List<Process> processObjectListParam) {
+		processObjectList = new ArrayList<>();
+		for(int i = 0; i < processObjectListParam.size(); i++ ) {
+			processObjectList.add(processObjectListParam.get(i));
+		}
+		
 	}
 	
 	public List<Process> getProcessObjectList(){

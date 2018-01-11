@@ -23,19 +23,22 @@ public class Computer {
 		alert = controller.getAlert();
 		processList = new ArrayList<>();
 		processKilledList = controller.getListProcessKilled();
+		
+		
+		
 
 		Thread threadtest = new Thread() {
 			public void run() {
 				while (true) {
 					try {
-						Thread.sleep(2000);
+						Thread.sleep(6000);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
 					List<Process> processObjectList = controller.getProcessObjectList();
 					if (processObjectList.size() > 0) {
 						setProcessList(processObjectList);
-					}
+					}					
 				}
 			};
 		};
@@ -139,6 +142,7 @@ public class Computer {
 	 */
 	public void setProcessList(List<Process> processList) {
 		this.processList = processList;
+		alert.CheckIfProcessStop(this);
 	}
 
 	/**
@@ -154,7 +158,7 @@ public class Computer {
 	 */
 	public void setPercentageCPU(double percentageCPU) {
 		this.percentageCPU = percentageCPU;
-		alert.CheckIfAlert(this);
+		alert.CheckIfAlertCPU(this);
 	}
 
 	/**
