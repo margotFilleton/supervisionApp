@@ -20,7 +20,6 @@ public class AlertManager {
 	private User user;
 	private boolean memoruFullAlertSend;
 	private List<Process> lastListProcess;
-	boolean test = true;
 	private List<Process> tempList;
 
 	/**
@@ -32,7 +31,7 @@ public class AlertManager {
 		lastListProcess = null;
 	}
 
-	public void SendAlert(String msg) throws MailjetException, MailjetSocketTimeoutException {
+	public void sendAlert(String msg) throws MailjetException, MailjetSocketTimeoutException {
 		MailjetClient client;
 		MailjetRequest request;
 		MailjetResponse response;
@@ -45,13 +44,13 @@ public class AlertManager {
 		System.out.println(response.getData());
 	}
 
-	public void CheckIfAlertCPU(Computer computer) {
+	public void checkIfAlertCPU(Computer computer) {
 
 		System.out.println("checkif alert");
 		System.out.println(computer.getPercentageCPU()); // Check if memory stop
 		if(computer.getPercentageCPU() >= 40.0 && memoruFullAlertSend == false ) {
 			try { 
-				this.SendAlert(msgMemoryFull); memoruFullAlertSend = true;
+				this.sendAlert(msgMemoryFull); memoruFullAlertSend = true;
 				System.out.println("send CPU"); 
 			} catch (MailjetException e) { 
 				// TODO Auto-generated catch block 
@@ -64,7 +63,7 @@ public class AlertManager {
 			
 	}
 
-	public void CheckIfProcessStop(Computer computer) {		
+	public void checkIfProcessStop(Computer computer) {		
 		if(tempList != null) {
 			tempList.clear();
 		}	
@@ -83,7 +82,7 @@ public class AlertManager {
 				if (isInList == false && lastListProcess.get(i).getMemory() > 30.0) {
 					System.out.println("send Process end" + lastListProcess.get(i).getMemory());
 					try {
-						this.SendAlert(msgProcessStop + lastListProcess.get(i).getName() + ", PID : "
+						this.sendAlert(msgProcessStop + lastListProcess.get(i).getName() + ", PID : "
 								+ lastListProcess.get(i).getPID());
 						System.out.println("send");
 					} catch (MailjetException e) {

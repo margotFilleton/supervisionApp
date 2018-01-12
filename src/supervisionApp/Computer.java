@@ -142,7 +142,7 @@ public class Computer {
 	 */
 	public void setProcessList(List<Process> processList) {
 		this.processList = processList;
-		alert.CheckIfProcessStop(this);
+		alert.checkIfProcessStop(this);
 	}
 
 	/**
@@ -158,7 +158,7 @@ public class Computer {
 	 */
 	public void setPercentageCPU(double percentageCPU) {
 		this.percentageCPU = percentageCPU;
-		alert.CheckIfAlertCPU(this);
+		alert.checkIfAlertCPU(this);
 	}
 
 	/**
