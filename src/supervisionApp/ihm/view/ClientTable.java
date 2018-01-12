@@ -5,7 +5,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.IOException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JMenuItem;
@@ -17,7 +16,6 @@ import javax.swing.SwingUtilities;
 
 import supervisionApp.ihm.controller.SupervisionController;
 import supervisionApp.ihm.model.ClientTableModel;
-import supervisionApp.ihm.model.FileServer;
 
 public class ClientTable extends JPanel {
 
