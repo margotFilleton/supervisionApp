@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>supervision: supervisionApp.ConnectionManager Class Reference</title>
+<title>My Project: supervisionApp.ConnectionManager Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,7 +21,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">supervision
+   <div id="projectname">My Project
    </div>
   </td>
  </tr>
@@ -78,20 +78,20 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a21ca944d3a47e157d0d0922151615ab6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9a0e92b356aad176dff74703c81f76f5"><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupervision_app_1_1_connection_manager.html#a9a0e92b356aad176dff74703c81f76f5">isConnectedToDB</a> ()</td></tr>
 <tr class="separator:a9a0e92b356aad176dff74703c81f76f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a500e02fe1c860f1198a7b4f788ef8f71"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupervision_app_1_1_connection_manager.html#a500e02fe1c860f1198a7b4f788ef8f71">ConnectionManager</a> (String url, String passwordDB)</td></tr>
-<tr class="separator:a500e02fe1c860f1198a7b4f788ef8f71"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adce1da7b52e3b51c0d1cf06fd4119947"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupervision_app_1_1_connection_manager.html#adce1da7b52e3b51c0d1cf06fd4119947">ConnectionManager</a> (String url, String userDB, String passwordDB)</td></tr>
+<tr class="separator:adce1da7b52e3b51c0d1cf06fd4119947"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8275e461723753aedbcdcb28e8ce2947"><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupervision_app_1_1_connection_manager.html#a8275e461723753aedbcdcb28e8ce2947">ConnectDB</a> ()</td></tr>
 <tr class="separator:a8275e461723753aedbcdcb28e8ce2947"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae76da5e057d681346c6ec5cbc843513d"><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupervision_app_1_1_connection_manager.html#ae76da5e057d681346c6ec5cbc843513d">DisconnectDB</a> ()</td></tr>
 <tr class="separator:ae76da5e057d681346c6ec5cbc843513d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afa9c0e1d8f2fc365c652b7a02ed48402"><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupervision_app_1_1_connection_manager.html#afa9c0e1d8f2fc365c652b7a02ed48402">ConnectUser</a> (String id, String password)</td></tr>
-<tr class="separator:afa9c0e1d8f2fc365c652b7a02ed48402"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a86d1867e8be58441f766c4980b3a61a8"><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupervision_app_1_1_connection_manager.html#a86d1867e8be58441f766c4980b3a61a8">ConnectUser</a> (String id, char[] password)</td></tr>
+<tr class="separator:a86d1867e8be58441f766c4980b3a61a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9b8070645dd7519725ffdef263cf543b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupervision_app_1_1_connection_manager.html#a9b8070645dd7519725ffdef263cf543b">DisconnectUser</a> ()</td></tr>
 <tr class="separator:a9b8070645dd7519725ffdef263cf543b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a500e02fe1c860f1198a7b4f788ef8f71"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a500e02fe1c860f1198a7b4f788ef8f71">&#9670;&nbsp;</a></span>ConnectionManager()</h2>
+<a id="adce1da7b52e3b51c0d1cf06fd4119947"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adce1da7b52e3b51c0d1cf06fd4119947">&#9670;&nbsp;</a></span>ConnectionManager()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -101,6 +101,12 @@ Public Member Functions</h2></td></tr>
           <td>(</td>
           <td class="paramtype">String&#160;</td>
           <td class="paramname"><em>url</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">String&#160;</td>
+          <td class="paramname"><em>userDB</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -144,8 +150,8 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="afa9c0e1d8f2fc365c652b7a02ed48402"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afa9c0e1d8f2fc365c652b7a02ed48402">&#9670;&nbsp;</a></span>ConnectUser()</h2>
+<a id="a86d1867e8be58441f766c4980b3a61a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a86d1867e8be58441f766c4980b3a61a8">&#9670;&nbsp;</a></span>ConnectUser()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -159,7 +165,7 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">String&#160;</td>
+          <td class="paramtype">char []&#160;</td>
           <td class="paramname"><em>password</em>&#160;</td>
         </tr>
         <tr>
@@ -271,7 +277,7 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/Users/Margot/Desktop/supervision/supervisionApp/src/supervisionApp/ConnectionManager.java</li>
+<li>C:/Users/Margot/eclipse-workspace/supervisionApp/src/supervisionApp/ConnectionManager.java</li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

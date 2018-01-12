@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>supervision: supervisionApp.Process Class Reference</title>
+<title>My Project: supervisionApp.Process Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,7 +21,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">supervision
+   <div id="projectname">My Project
    </div>
   </td>
  </tr>
@@ -80,10 +80,19 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a2ef9c2e25038cecbaee3467ca30eb53e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab336aadd676925e6e89c16f66bf03f24"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupervision_app_1_1_process.html#ab336aadd676925e6e89c16f66bf03f24">getDisk</a> ()</td></tr>
 <tr class="separator:ab336aadd676925e6e89c16f66bf03f24"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad50b3d73a7e19a470060b78345012ff7"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupervision_app_1_1_process.html#ad50b3d73a7e19a470060b78345012ff7">getNetwork</a> ()</td></tr>
-<tr class="separator:ad50b3d73a7e19a470060b78345012ff7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:add728aebc303389795395210b3ea83de"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupervision_app_1_1_process.html#add728aebc303389795395210b3ea83de">Process</a> (String name, float CPU, float memory, float disk, float network)</td></tr>
-<tr class="separator:add728aebc303389795395210b3ea83de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba283fd0ac4818ad509106df17738ed3"><td class="memItemLeft" align="right" valign="top">String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupervision_app_1_1_process.html#aba283fd0ac4818ad509106df17738ed3">getPID</a> ()</td></tr>
+<tr class="separator:aba283fd0ac4818ad509106df17738ed3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c07abbe5b19a8f0f86dbb97b1008697"><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupervision_app_1_1_process.html#a0c07abbe5b19a8f0f86dbb97b1008697">isStart</a> ()</td></tr>
+<tr class="separator:a0c07abbe5b19a8f0f86dbb97b1008697"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a96386cf6c4fde0c081e8adf9d5f8515c"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupervision_app_1_1_process.html#a96386cf6c4fde0c081e8adf9d5f8515c">getSize</a> ()</td></tr>
+<tr class="separator:a96386cf6c4fde0c081e8adf9d5f8515c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e061f18aea4f2558638e9a9de2f0758"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupervision_app_1_1_process.html#a5e061f18aea4f2558638e9a9de2f0758">setStart</a> (boolean isStart)</td></tr>
+<tr class="separator:a5e061f18aea4f2558638e9a9de2f0758"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa06d715bfb1a855d005348d9e5fb0d5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupervision_app_1_1_process.html#afa06d715bfb1a855d005348d9e5fb0d5">Process</a> (String name, float CPU, float memory, float disk, String PID, boolean isStart)</td></tr>
+<tr class="separator:afa06d715bfb1a855d005348d9e5fb0d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aab3560c6fd6906eff7e5c0fec006b38a"><td class="memItemLeft" align="right" valign="top"><a id="aab3560c6fd6906eff7e5c0fec006b38a"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Process</b> (String name, String processSize, String PID, boolean isStart)</td></tr>
+<tr class="separator:aab3560c6fd6906eff7e5c0fec006b38a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad02bab92ca2cd339cdd1ac065dc5a2a1"><td class="memItemLeft" align="right" valign="top"><a id="ad02bab92ca2cd339cdd1ac065dc5a2a1"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>killProcess</b> ()</td></tr>
 <tr class="separator:ad02bab92ca2cd339cdd1ac065dc5a2a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -92,8 +101,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>restartProcess</b> ()
 <tr class="separator:a77d763093fc7d66ea9cbaa2b59d8a726"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="add728aebc303389795395210b3ea83de"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#add728aebc303389795395210b3ea83de">&#9670;&nbsp;</a></span>Process()</h2>
+<a id="afa06d715bfb1a855d005348d9e5fb0d5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afa06d715bfb1a855d005348d9e5fb0d5">&#9670;&nbsp;</a></span>Process()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -125,8 +134,14 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>restartProcess</b> ()
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>network</em>&#160;</td>
+          <td class="paramtype">String&#160;</td>
+          <td class="paramname"><em>PID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">boolean&#160;</td>
+          <td class="paramname"><em>isStart</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -141,7 +156,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>restartProcess</b> ()
     <tr><td class="paramname">CPU</td><td></td></tr>
     <tr><td class="paramname">memory</td><td></td></tr>
     <tr><td class="paramname">disk</td><td></td></tr>
-    <tr><td class="paramname">network</td><td></td></tr>
+    <tr><td class="paramname">PID</td><td></td></tr>
+    <tr><td class="paramname">isStart</td><td></td></tr>
   </table>
   </dd>
 </dl>
@@ -221,26 +237,86 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>restartProcess</b> ()
 
 </div>
 </div>
-<a id="ad50b3d73a7e19a470060b78345012ff7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad50b3d73a7e19a470060b78345012ff7">&#9670;&nbsp;</a></span>getNetwork()</h2>
+<a id="aba283fd0ac4818ad509106df17738ed3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba283fd0ac4818ad509106df17738ed3">&#9670;&nbsp;</a></span>getPID()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">float supervisionApp.Process.getNetwork </td>
+          <td class="memname">String supervisionApp.Process.getPID </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>the network </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the PID </dd></dl>
+
+</div>
+</div>
+<a id="a96386cf6c4fde0c081e8adf9d5f8515c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a96386cf6c4fde0c081e8adf9d5f8515c">&#9670;&nbsp;</a></span>getSize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float supervisionApp.Process.getSize </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>the size </dd></dl>
+
+</div>
+</div>
+<a id="a0c07abbe5b19a8f0f86dbb97b1008697"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c07abbe5b19a8f0f86dbb97b1008697">&#9670;&nbsp;</a></span>isStart()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">boolean supervisionApp.Process.isStart </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>the isStart </dd></dl>
+
+</div>
+</div>
+<a id="a5e061f18aea4f2558638e9a9de2f0758"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5e061f18aea4f2558638e9a9de2f0758">&#9670;&nbsp;</a></span>setStart()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void supervisionApp.Process.setStart </td>
+          <td>(</td>
+          <td class="paramtype">boolean&#160;</td>
+          <td class="paramname"><em>isStart</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">isStart</td><td>the isStart to set </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/Users/Margot/Desktop/supervision/supervisionApp/src/supervisionApp/Process.java</li>
+<li>C:/Users/Margot/eclipse-workspace/supervisionApp/src/supervisionApp/Process.java</li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

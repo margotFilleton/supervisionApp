@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['user',['User',['../classsupervision_app_1_1_user.html',1,'supervisionApp']]]
+  ['process',['Process',['../classsupervision_app_1_1_process.html',1,'supervisionApp']]]
 ];
